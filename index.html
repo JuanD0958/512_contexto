@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinco Doce — Arquitectura Moderna</title>
+    <meta name="description" content="Cinco Doce - Arquitectura moderna y diseño innovador en Colombia. Creamos espacios únicos que transforman la forma de vivir.">
+    <meta name="keywords" content="arquitectura, diseño, Colombia, construcción, proyectos, casas modernas">
+    
+    <!-- PicoCSS Framework -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Language Selector - Top Left -->
+    <div class="language-selector-topbar">
+        <div class="language-selector">
+            <button class="lang-btn" id="lang-btn" aria-label="Selector de idioma">
+                <span class="lang-flag">🇪🇸</span>
+                <span class="lang-code">ES</span>
+                <span class="lang-arrow">▼</span>
+            </button>
+            <div class="lang-dropdown" id="lang-dropdown" role="menu">
+                <button class="lang-option" data-lang="es" role="menuitem">
+                    <span class="lang-flag">🇪🇸</span>
+                    <span>Español</span>
+                </button>
+                <button class="lang-option" data-lang="en" role="menuitem">
+                    <span class="lang-flag">🇺🇸</span>
+                    <span>English</span>
+                </button>
+                <button class="lang-option" data-lang="fr" role="menuitem">
+                    <span class="lang-flag">🇫🇷</span>
+                    <span>Français</span>
+                </button>
+                <button class="lang-option" data-lang="pt" role="menuitem">
+                    <span class="lang-flag">🇧🇷</span>
+                    <span>Português</span>
+                </button>
+                <button class="lang-option" data-lang="it" role="menuitem">
+                    <span class="lang-flag">🇮🇹</span>
+                    <span>Italiano</span>
+                </button>
+                <button class="lang-option" data-lang="de" role="menuitem">
+                    <span class="lang-flag">🇩🇪</span>
+                    <span>Deutsch</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.webp" alt="Cinco Doce" class="logo-img">
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link" data-translate="nav-home">Inicio</a>
+                <a href="#projects" class="nav-link" data-translate="nav-projects">Proyectos</a>
+                <a href="#contact" class="nav-link" data-translate="nav-contact">Contacto</a>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-toggle" id="nav-toggle" aria-label="Menú de navegación">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title" data-translate="hero-title">Arquitectura atemporal, impulsada por la visión</h1>
+            <p class="hero-subtitle" data-translate="hero-subtitle">Creamos espacios únicos que transforman la forma de vivir y trabajar, combinando diseño innovador con funcionalidad excepcional.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary" data-translate="btn-view-projects">Ver Proyectos</a>
+                <a href="#contact" class="btn btn-outline" data-translate="btn-contact">Contáctanos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <header class="section-header">
+                <h2 data-translate="projects-title">Nuestros Proyectos</h2>
+                <p data-translate="projects-subtitle">Una selección de nuestros trabajos más representativos</p>
+            </header>
+            
+            <div class="projects-grid">
+                <figure class="project-card">
+                    <img src="images/casa-madera.webp" alt="Casa de Madera Moderna" loading="lazy">
+                    <figcaption>
+                        <h3 data-translate="project1-title">Casa de Madera Moderna</h3>
+                        <p data-translate="project1-desc">Residencia unifamiliar que combina materiales naturales con líneas contemporáneas, creando un espacio cálido y sofisticado.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="project-card">
+                    <img src="images/fachada-luz.webp" alt="Fachada de Luz" loading="lazy">
+                    <figcaption>
+                        <h3 data-translate="project2-title">Fachada de Luz</h3>
+                        <p data-translate="project2-desc">Edificio comercial con fachada dinámica que juega con la luz natural y artificial para crear una experiencia visual única.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="project-card">
+                    <img src="images/oficinas-minimalistas.webp" alt="Oficinas Minimalistas" loading="lazy">
+                    <figcaption>
+                        <h3 data-translate="project3-title">Oficinas Minimalistas</h3>
+                        <p data-translate="project3-desc">Espacio de trabajo que maximiza la productividad a través del diseño limpio y la optimización de la luz natural.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="project-card">
+                    <img src="images/casa-patio.webp" alt="Casa del Patio" loading="lazy">
+                    <figcaption>
+                        <h3 data-translate="project4-title">Casa del Patio</h3>
+                        <p data-translate="project4-desc">Vivienda que reinterpreta el concepto tradicional del patio colonial con un enfoque contemporáneo y sostenible.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="project-card">
+                    <img src="images/loft-urbano.webp" alt="Loft Urbano" loading="lazy">
+                    <figcaption>
+                        <h3 data-translate="project5-title">Loft Urbano</h3>
+                        <p data-translate="project5-desc">Transformación de un espacio industrial en un hogar moderno que celebra la historia del edificio.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="project-card">
+                    <img src="images/hotel-boutique.webp" alt="Hotel Boutique" loading="lazy">
+                    <figcaption>
+                        <h3 data-translate="project6-title">Hotel Boutique</h3>
+                        <p data-translate="project6-desc">Proyecto hotelero que fusiona la arquitectura local con amenidades de lujo para una experiencia única.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <header class="section-header">
+                <h2 data-translate="contact-title">Conversemos sobre tu proyecto</h2>
+                <p data-translate="contact-subtitle">Estamos listos para materializar tu visión</p>
+            </header>
+            
+            <div class="contact-options">
+                <a href="https://wa.me/573001234567" class="contact-card whatsapp" target="_blank" rel="noopener">
+                    <div class="contact-icon">
+                        <img src="images/whatsapp_logo.webp" alt="WhatsApp" class="contact-icon-img">
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p data-translate="contact-whatsapp">Chatea con nosotros directamente</p>
+                </a>
+                
+                <a href="https://www.instagram.com/______cincodoce/" class="contact-card instagram" target="_blank" rel="noopener">
+                    <div class="contact-icon">
+                        <img src="images/instagram_logo.webp" alt="Instagram" class="contact-icon-img">
+                    </div>
+                    <h3>Instagram</h3>
+                    <p data-translate="contact-instagram">Síguenos @______cincodoce</p>
+                </a>
+                
+                <div class="contact-card email">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>contexto512studio@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Cinco Doce</h3>
+                    <p data-translate="footer-tagline">Arquitectura moderna para un mundo en evolución</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://wa.me/573001234567" target="_blank" rel="noopener">WhatsApp</a>
+                    <a href="https://www.instagram.com/______cincodoce/" target="_blank" rel="noopener">Instagram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-translate="footer-copyright">&copy; 2025 Cinco Doce. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
