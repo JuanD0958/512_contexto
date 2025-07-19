@@ -141,7 +141,7 @@ body {
 .bar {
   width: 25px;
   height: 3px;
-  background: var(--primary-color);
+  background: var(--text-primary);
   margin: 3px 0;
   transition: 0.3s;
 }
@@ -445,7 +445,7 @@ body {
   align-items: center;
   gap: 0.2rem;
   padding: 0.3rem 0.5rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   border-radius: 4px;
@@ -460,7 +460,7 @@ body {
 .language-selector-topbar .lang-btn:hover {
   border-color: var(--accent-color);
   box-shadow: var(--shadow-hover);
-  background: var(--bg-secondary);
+  background: var(--bg-tertiary);
 }
 
 .language-selector-topbar .lang-flag {
@@ -524,7 +524,7 @@ body {
 }
 
 .language-selector-topbar .lang-option:hover {
-  background: var(--secondary-color);
+  background: var(--bg-tertiary);
 }
 
 .language-selector-topbar .lang-option:last-child {
@@ -550,7 +550,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: white;
+  background: var(--bg-secondary);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -586,7 +586,7 @@ body {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  background: white;
+  background: var(--bg-secondary);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-hover);
@@ -618,7 +618,7 @@ body {
 }
 
 .lang-option:hover {
-  background: var(--secondary-color);
+  background: var(--bg-tertiary);
 }
 
 .lang-option:last-child {
