@@ -7,16 +7,32 @@
   font-display: swap;
 }
 
-/* CSS Custom Properties */
+/* CSS Custom Properties - Dark Theme */
 :root {
-  --primary-color: #2c2c2c;
-  --secondary-color: #f8f9fa;
-  --accent-color: #007bff;
-  --text-color: #333;
-  --text-light: #666;
-  --border-color: #e9ecef;
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+  /* Dark Background Colors */
+  --bg-primary: #121212;
+  --bg-secondary: #1C1C1C;
+  --bg-tertiary: #2F2F2F;
+  
+  /* Text Colors for Dark Theme */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --text-muted: #808080;
+  
+  /* Accent & Primary Colors */
+  --accent-color: #e85015;
+  --accent-hover: #d4460f;
+  --primary-color: var(--text-primary);
+  
+  /* Legacy variables for compatibility */
+  --secondary-color: var(--bg-secondary);
+  --text-color: var(--text-primary);
+  --text-light: var(--text-secondary);
+  
+  /* UI Elements */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
   --border-radius: 8px;
   --transition: all 0.3s ease;
 }
@@ -32,6 +48,7 @@ body {
   font-family: 'CincoDoceFont', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   color: var(--text-color);
+  background-color: var(--bg-primary);
   scroll-behavior: smooth;
 }
 
@@ -43,8 +60,9 @@ body {
 
 /* Navigation Styles */
 .navbar {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(18, 18, 18, 0.95);
   backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
   position: fixed;
   top: 0;
   width: 100%;
@@ -132,11 +150,14 @@ body {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--secondary-color) 0%, #ffffff 100%);
-  text-align: center;
-  padding: 2rem 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: var(--bg-primary);
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 20px 20px;
+  text-align: left;
+  padding: 10rem 1rem;
   margin-top: 80px;
 }
 
@@ -145,20 +166,23 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
+  font-size: clamp(2.0rem, 1vw, 2rem);
+  font-weight: 400;
   color: var(--primary-color);
   margin-bottom: 1.5rem;
   line-height: 1.2;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 400px
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--text-light);
-  margin-bottom: 2.5rem;
-  max-width: 600px;
-  margin-left: auto;
+  margin-bottom: 1.5rem;
+  max-width: 400px;
   margin-right: auto;
+  margin-left: auto;
 }
 
 .hero-buttons {
@@ -169,10 +193,10 @@ body {
 }
 
 .btn {
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   border-radius: var(--border-radius);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 400;
   transition: var(--transition);
   border: 2px solid transparent;
   cursor: pointer;
@@ -185,20 +209,20 @@ body {
 }
 
 .btn-primary:hover {
-  background: #0056b3;
+  background: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--accent-color);
-  border-color: var(--accent-color);
+  color: var(--text-primary);
+  border-color: var(--text-primary);
 }
 
 .btn-outline:hover {
-  background: var(--accent-color);
-  color: white;
+  background: var(--text-primary);
+  color: var(--bg-primary);
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
@@ -212,13 +236,13 @@ body {
 .section-header h2 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .section-header p {
   font-size: 1.1rem;
-  color: var(--text-light);
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
 }
@@ -226,7 +250,7 @@ body {
 /* Projects Section */
 .projects {
   padding: 5rem 0;
-  background: white;
+  background: var(--bg-secondary);
 }
 
 .projects-grid {
@@ -237,9 +261,10 @@ body {
 }
 
 .project-card {
-  background: white;
+  background: var(--bg-tertiary);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
   overflow: hidden;
   transition: var(--transition);
   margin: 0;
@@ -268,19 +293,19 @@ body {
 .project-card h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .project-card p {
-  color: var(--text-light);
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
 /* Contact Section */
 .contact {
   padding: 5rem 0;
-  background: var(--secondary-color);
+  background: var(--bg-primary);
 }
 
 .contact-options {
@@ -291,7 +316,8 @@ body {
 }
 
 .contact-card {
-  background: white;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
   padding: 2rem;
   border-radius: var(--border-radius);
   text-align: center;
@@ -325,12 +351,12 @@ body {
 .contact-card h3 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .contact-card p {
-  color: var(--text-light);
+  color: var(--text-secondary);
 }
 
 .whatsapp:hover .contact-icon {
@@ -344,8 +370,9 @@ body {
 
 /* Footer */
 .footer {
-  background: var(--primary-color);
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-top: 1px solid var(--border-color);
   padding: 3rem 0 1rem;
 }
 
@@ -361,10 +388,11 @@ body {
 .footer-brand h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 .footer-brand p {
-  color: #ccc;
+  color: var(--text-secondary);
 }
 
 .footer-links {
@@ -373,23 +401,23 @@ body {
 }
 
 .footer-links a {
-  color: #ccc;
+  color: var(--text-secondary);
   text-decoration: none;
   transition: var(--transition);
 }
 
 .footer-links a:hover {
-  color: white;
+  color: var(--text-primary);
 }
 
 .footer-bottom {
   padding-top: 2rem;
-  border-top: 1px solid #555;
+  border-top: 1px solid var(--border-color);
   text-align: center;
 }
 
 .footer-bottom p {
-  color: #999;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
@@ -432,7 +460,7 @@ body {
 .language-selector-topbar .lang-btn:hover {
   border-color: var(--accent-color);
   box-shadow: var(--shadow-hover);
-  background: rgba(255, 255, 255, 1);
+  background: var(--bg-secondary);
 }
 
 .language-selector-topbar .lang-flag {
@@ -457,7 +485,7 @@ body {
   position: absolute;
   top: calc(100% + 0.3rem);
   right: 0;
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   border-radius: 4px;
@@ -790,7 +818,8 @@ body {
     left: -100%;
     top: 80px;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
     width: 100%;
     text-align: center;
     transition: 0.3s;
