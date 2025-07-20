@@ -345,3 +345,52 @@ const text = CincoDoce.translate('projects.count', { count: 6 });
 // Formatear fecha según idioma actual
 const formattedDate = CincoDoce.formatDate('2024-03-15', 'es');
 ```
+
+## 💡 LED Strip Light Effect
+
+El sitio incluye un sofisticado efecto de luz LED debajo de la barra de navegación, implementado con Three.js.
+
+### Características del Efecto
+- **Renderizado continuo**: Tira de luz suave sin LEDs discretos
+- **Shader personalizado**: Gradiente amarillo-naranja con efecto bloom
+- **Totalmente responsivo**: Se adapta al ancho de la ventana
+- **Rendimiento optimizado**: Utiliza WebGL para renderizado eficiente
+- **Inicialización automática**: Se carga dinámicamente después del DOM
+
+### Sistema de Inicialización
+
+#### Auto-inicialización
+El efecto se inicializa automáticamente cuando se carga la página:
+
+```html
+<!-- En index.html -->
+<script type="module" src="led-strip-initializer.js"></script>
+```
+
+#### Inicialización Manual
+Para control avanzado, puedes usar el sistema de inicialización manual:
+
+```javascript
+import { initializeLEDStrip, LEDStripInitializer } from './led-strip-initializer.js';
+
+// Método simple
+const effect = await initializeLEDStrip();
+
+// Método avanzado con configuración personalizada
+const initializer = new LEDStripInitializer();
+initializer.containerHeight = 120;  // Altura personalizada
+initializer.navbarHeight = 70;      // Altura de navbar personalizada
+const effect = await initializer.init();
+```
+
+### Archivos del Sistema LED
+- `led-effect.js`: Clase principal LEDStripEffect con renderizado Three.js
+- `led-strip-initializer.js`: Utilidad de inicialización y gestión de contenedor
+- `led-demo.js`: Ejemplos de uso y configuración avanzada
+
+### Contenedor Dinámico
+Si el contenedor `#light-effect` no existe, se crea automáticamente con:
+- Posición absoluta debajo de la navbar
+- Altura de 100px por defecto
+- Ancho completo de la ventana
+- Z-index apropiado para visibilidad
