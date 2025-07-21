@@ -200,3 +200,6 @@ CONSIDERATIONS:
 
     Refer to the Bootstrap documentation for best practices and detailed examples of usage patterns.
     
+
+## Branding
+- the colors we should consider for our page are: 

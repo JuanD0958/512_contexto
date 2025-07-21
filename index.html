@@ -3,53 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- SEO Meta Tags -->
     <title>Cinco Doce — Arquitectura Moderna</title>
     <meta name="description" content="Cinco Doce - Arquitectura moderna y diseño innovador en Colombia. Creamos espacios únicos que transforman la forma de vivir.">
     <meta name="keywords" content="arquitectura, diseño, Colombia, construcción, proyectos, casas modernas">
+    <meta name="author" content="Cinco Doce">
+    <meta name="robots" content="index, follow">
     
-    <!-- PicoCSS Framework -->
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cinco Doce — Arquitectura Moderna">
+    <meta property="og:description" content="Arquitectura moderna y diseño innovador en Colombia">
+    <meta property="og:image" content="/images/favicon.ico">
+    <meta property="og:url" content="https://cincodocestudio.com">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cinco Doce — Arquitectura Moderna">
+    <meta name="twitter:description" content="Arquitectura moderna y diseño innovador en Colombia">
+    <meta name="twitter:image" content="/images/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image" href="/images/favicon.ico">
+    <link rel="alternate icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    
-    <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Language Selector - Top Left -->
-    <div class="language-selector-topbar">
-        <div class="language-selector">
-            <button class="lang-btn" id="lang-btn" aria-label="Selector de idioma">
-                <span class="lang-flag">🇪🇸</span>
-                <span class="lang-code">ES</span>
-                <span class="lang-arrow">▼</span>
-            </button>
-            <div class="lang-dropdown" id="lang-dropdown" role="menu">
-                <button class="lang-option" data-lang="es" role="menuitem">
-                    <span class="lang-flag">🇪🇸</span>
-                    <span>Español</span>
-                </button>
-                <button class="lang-option" data-lang="en" role="menuitem">
-                    <span class="lang-flag">🇺🇸</span>
-                    <span>English</span>
-                </button>
-                <button class="lang-option" data-lang="fr" role="menuitem">
-                    <span class="lang-flag">🇫🇷</span>
-                    <span>Français</span>
-                </button>
-                <button class="lang-option" data-lang="pt" role="menuitem">
-                    <span class="lang-flag">🇧🇷</span>
-                    <span>Português</span>
-                </button>
-                <button class="lang-option" data-lang="it" role="menuitem">
-                    <span class="lang-flag">🇮🇹</span>
-                    <span>Italiano</span>
-                </button>
-                <button class="lang-option" data-lang="de" role="menuitem">
-                    <span class="lang-flag">🇩🇪</span>
-                    <span>Deutsch</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <!-- Skip Navigation Link for Accessibility -->
+    <a href="#main-content" class="sr-only">Saltar al contenido principal</a>
+    
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -72,21 +64,98 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-container">
-                <h1 class="hero-title" data-translate="hero-title">Arquitectura atemporal, impulsada por la visión</h1>
-                <p class="hero-subtitle" data-translate="hero-subtitle">Creamos espacios únicos que transforman la forma de vivir y trabajar, combinando diseño innovador con funcionalidad excepcional.</p>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <div class="hero-container">
+                <!-- Animated SVG Hero Text -->
+                <div class="hero-svg-container">
+                    <!-- Hidden heading for accessibility -->
+                    <h1 id="hero-heading" class="sr-only" data-translate="hero-title">Arquitectura atemporal, impulsada por la visión</h1>
+                    
+                    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" class="hero-svg" role="img" aria-labelledby="hero-heading">
+                        <style>
+                            @font-face {
+                                font-family: 'CincoDoceFont';
+                                src: url('/fonts/cincodoce-font.ttf') format('truetype');
+                            }
+
+                            .title {
+                                font: 800 60px 'CincoDoceFont', sans-serif;
+                                fill: #ffffff;
+                                opacity: 0;
+                                animation: fadeIn 1s forwards;
+                            }
+                            .subtitle {
+                                font: 200 30px 'CincoDoceFont', sans-serif;
+                                fill: #cccccc;
+                                opacity: 0;
+                                animation: fadeIn 1s forwards;
+                            }
+                            .line {
+                                stroke: #ff6600;
+                                stroke-width: 6;
+                                stroke-linecap: round;
+                                stroke-dasharray: 500;
+                                stroke-dashoffset: 500;
+                                animation: drawLine 1s forwards;
+                                margin-bottom: 10px;
+                            }
+                            .line-long {
+                                stroke: #ff6600;
+                                stroke-width: 6;
+                                stroke-linecap: round;
+                                stroke-dasharray: 1100;
+                                stroke-dashoffset: 1100;
+                                animation: drawLineLong 1s forwards;
+                            }
+
+                            @keyframes fadeIn {
+                                to { opacity: 1; }
+                            }
+
+                            @keyframes drawLine {
+                                to { stroke-dashoffset: 0; }
+                            }
+
+                            @keyframes drawLineLong {
+                                to { stroke-dashoffset: 0; }
+                            }
+                        </style>
+
+                        <!-- Decorative line above title -->
+                        <line x1="50" y1="40" x2="500" y2="40" class="line" style="animation-delay: 0.2s;"/>
+
+                        <!-- Title Text -->
+                        <text x="50" y="100" class="title" style="animation-delay: 0.5s;">
+                            Arquitectura atemporal,
+                        </text>
+                        <text x="50" y="180" class="title" style="animation-delay: 1s;">
+                            impulsada por la visión
+                        </text>
+
+                        <!-- Decorative line below title -->
+                        <line x1="50" y1="340" x2="1100" y2="340" class="line-long" style="animation-delay: 3.5s;"/>
+
+                        <!-- Subtitle Text -->
+                        <text x="50" y="240" class="subtitle" style="animation-delay: 1.5s;">
+                            Creamos espacios únicos que transforman
+                        </text>
+                        <text x="50" y="280" class="subtitle" style="animation-delay: 2.5s;">
+                            la forma de vivir y trabajar,
+                        </text>
+                        <text x="50" y="320" class="subtitle" style="animation-delay: 3s;">
+                            combinando diseño innovador con funcionalidad.
+                        </text>
+                    </svg>
+                </div>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary" data-translate="btn-view-projects">Ver Proyectos</a>
                     <a href="#contact" class="btn btn-outline" data-translate="btn-contact">Contáctanos</a>
                 </div>
             </div>
-        </div>
-        <div class="hero-image">
-            <!-- Image placeholder for future use -->
-            <div class="hero-image-placeholder"></div>
         </div>
     </section>
 
@@ -202,8 +271,10 @@
             </div>
         </div>
     </footer>
+    </main>
 
     <!-- JavaScript -->
     <script src="script.js"></script>
+
 </body>
 </html>
