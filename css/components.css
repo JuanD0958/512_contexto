@@ -219,15 +219,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-lg) var(--space-2xl);
-  font-size: var(--font-size-lg);
-  font-weight: 600;
+  padding: var(--space-sm) var(--space-lg); /* Reduced from lg/2xl to sm/lg */
+  font-size: calc(var(--font-size-base) * 0.9); /* Reduced from lg to smaller base */
+  font-weight: 500; /* Reduced from 600 to 500 */
   text-decoration: none;
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-md); /* Reduced from lg to md */
   transition: all var(--transition-base);
-  border: 2px solid transparent;
+  border: 1px solid transparent; /* Reduced from 2px to 1px */
   cursor: pointer;
-  min-width: 150px;
+  min-width: 120px; /* Reduced from 150px to 120px */
+  min-height: 40px; /* Added for consistency */
 }
 
 .btn-primary {
@@ -564,11 +565,15 @@ section {
   .hero-buttons {
     flex-direction: column;
     align-items: center;
+    gap: var(--space-md); /* Add explicit gap */
   }
   
   .btn {
-    width: 100%;
-    max-width: 280px;
+    width: auto; /* Allow natural width */
+    max-width: 200px; /* Reduced from 280px to 200px */
+    min-width: 140px; /* Ensure minimum readable width */
+    min-height: 44px; /* Maintain touch target on mobile */
+    padding: var(--space-md) var(--space-lg); /* Slightly larger on mobile */
   }
   
   .projects-grid {

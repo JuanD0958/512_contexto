@@ -457,18 +457,18 @@ a {
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  padding: var(--space-md) var(--space-xl);
+  padding: var(--space-sm) var(--space-lg); /* Reduced from md/xl to sm/lg */
   border-radius: var(--border-radius-md);
   text-decoration: none;
   font-weight: 500;
-  font-size: var(--font-size-base);
+  font-size: calc(var(--font-size-base) * 0.9); /* Slightly smaller font */
   line-height: 1.5;
   text-align: center;
   white-space: nowrap;
   transition: var(--transition-fast);
   cursor: pointer;
   border: 1px solid transparent;
-  min-height: 44px; /* Touch target size */
+  min-height: 40px; /* Reduced from 44px to 40px */
   position: relative;
   overflow: hidden;
 }
@@ -1163,11 +1163,15 @@ a {
   .hero-buttons {
     flex-direction: column;
     align-items: center;
+    gap: var(--space-md); /* Add explicit gap for better spacing */
   }
 
   .btn {
-    width: 100%;
-    max-width: 300px;
+    width: auto; /* Allow natural width instead of forcing 100% */
+    max-width: 200px; /* Reduced from 300px to 200px */
+    min-width: 140px; /* Ensure minimum readable width */
+    min-height: 44px; /* Restore full touch target on mobile */
+    padding: var(--space-md) var(--space-lg); /* Slightly larger padding on mobile for touch */
   }
 
   .projects-grid {
