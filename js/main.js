@@ -8,6 +8,7 @@ class App {
         this.navigation = null;
         this.smoothScroll = null;
         this.particles = null;
+        this.projectsSlider = null;
         this.isInitialized = false;
         
         this.init();
@@ -36,6 +37,7 @@ class App {
             // Initialize particles after a short delay to ensure DOM is ready
             setTimeout(() => {
                 this.initializeParticles();
+                this.initializeProjectsSlider();
                 this.setupErrorHandling();
                 
                 // Ensure main content is visible after everything is loaded
@@ -113,6 +115,23 @@ class App {
             }
         } catch (error) {
             console.error('❌ Error initializing particles:', error);
+        }
+    }
+    
+    initializeProjectsSlider() {
+        try {
+            if (typeof ProjectsSlider !== 'undefined') {
+                this.projectsSlider = ProjectsSlider.init({
+                    speed: 30, // 30 seconds for one complete loop
+                    pauseOnHover: true,
+                    pauseOnFocus: true
+                });
+                console.log('✅ Projects slider initialized');
+            } else {
+                console.warn('⚠️ ProjectsSlider not available');
+            }
+        } catch (error) {
+            console.error('❌ Error initializing projects slider:', error);
         }
     }
     

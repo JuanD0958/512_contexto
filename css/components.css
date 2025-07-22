@@ -284,31 +284,64 @@ section {
   margin: 0 auto;
 }
 
-/* Projects Section */
+/* Projects Section - Infinite Horizontal Slider */
+.projects {
+  overflow: hidden;
+  position: relative;
+}
+
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  display: flex;
+  flex-wrap: nowrap;
   gap: var(--space-2xl);
   margin-top: var(--space-3xl);
+  will-change: transform;
+  /* Reset any previous transforms or transitions */
+  transform: none;
+  transition: none;
+  animation: none;
 }
 
 .project-card {
-  background: transparent;
+  flex: 0 0 auto;
+  width: clamp(300px, 25vw, 400px);
+  background: var(--color-background-secondary);
   border-radius: var(--border-radius-lg);
   overflow: hidden;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Reset any previous transforms or transitions to avoid GSAP conflicts */
+  transform: none;
+  transition: none;
+  animation: none;
+  cursor: pointer;
+  position: relative;
 }
 
-.project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-dark-hover);
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(232, 80, 21, 0.1) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card:hover::before {
+  opacity: 1;
 }
 
 .project-card img {
   width: 100%;
   height: 250px;
   object-fit: cover;
+  display: block;
+  /* Reset transforms to avoid conflicts */
+  transform: none;
   transition: transform var(--transition-slow);
 }
 
@@ -318,6 +351,8 @@ section {
 
 .project-card figcaption {
   padding: var(--space-xl);
+  position: relative;
+  z-index: 2;
 }
 
 .project-card h3 {
@@ -325,11 +360,17 @@ section {
   font-weight: 600;
   margin-bottom: var(--space-md);
   color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+.project-card:hover h3 {
+  color: var(--color-accent);
 }
 
 .project-card p {
   color: var(--color-text-secondary);
   line-height: 1.6;
+  font-size: var(--font-size-base);
 }
 
 /* Contact Section */
@@ -522,8 +563,15 @@ section {
   }
   
   .projects-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
+  }
+  
+  .project-card {
+    width: clamp(280px, 80vw, 350px);
+  }
+  
+  .project-card img {
+    height: 200px;
   }
   
   .contact-options {

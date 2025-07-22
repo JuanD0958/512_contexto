@@ -122,29 +122,7 @@ class SmoothScroll {
                 });
             }
             
-            // Project cards animation
-            gsap.utils.toArray('.project-card').forEach((card, i) => {
-                gsap.fromTo(card,
-                    {
-                        opacity: 0,
-                        y: 60,
-                        scale: 0.8
-                    },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        duration: 0.8,
-                        delay: i * 0.1,
-                        ease: 'back.out(1.7)',
-                        scrollTrigger: {
-                            trigger: card,
-                            start: 'top 85%',
-                            toggleActions: 'play none none reverse'
-                        }
-                    }
-                );
-            });
+            // Note: Project cards animation removed to avoid conflicts with infinite slider
             
             // Contact cards animation
             gsap.utils.toArray('.contact-card').forEach((card, i) => {
