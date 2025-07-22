@@ -46,7 +46,7 @@
     </div>
 
     <!-- Main Website Content (initially hidden) -->
-    <div id="main-website" class="main-content-wrapper" style="opacity: 0;">
+    <div id="main-website" class="main-content-wrapper">
         <!-- Skip Navigation Link for Accessibility -->
         <a href="#main-content" class="sr-only">Saltar al contenido principal</a>
         
@@ -84,77 +84,29 @@
                         <h1 id="hero-heading" class="sr-only" data-translate="hero-title">Arquitectura atemporal, impulsada por la visión</h1>
                         
                         <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" class="hero-svg" role="img" aria-labelledby="hero-heading">
-                            <style>
-                                @font-face {
-                                    font-family: 'CincoDoceFont';
-                                    src: url('/fonts/cincodoce-font.ttf') format('truetype');
-                            }
-
-                            .title {
-                                font: 800 60px 'CincoDoceFont', sans-serif;
-                                fill: #ffffff;
-                                opacity: 0;
-                                animation: fadeIn 1s forwards;
-                            }
-                            .subtitle {
-                                font: 200 30px 'CincoDoceFont', sans-serif;
-                                fill: #cccccc;
-                                opacity: 0;
-                                animation: fadeIn 1s forwards;
-                            }
-                            .line {
-                                stroke: #ff6600;
-                                stroke-width: 6;
-                                stroke-linecap: round;
-                                stroke-dasharray: 500;
-                                stroke-dashoffset: 500;
-                                animation: drawLine 1s forwards;
-                                margin-bottom: 10px;
-                            }
-                            .line-long {
-                                stroke: #ff6600;
-                                stroke-width: 6;
-                                stroke-linecap: round;
-                                stroke-dasharray: 1100;
-                                stroke-dashoffset: 1100;
-                                animation: drawLineLong 1s forwards;
-                            }
-
-                            @keyframes fadeIn {
-                                to { opacity: 1; }
-                            }
-
-                            @keyframes drawLine {
-                                to { stroke-dashoffset: 0; }
-                            }
-
-                            @keyframes drawLineLong {
-                                to { stroke-dashoffset: 0; }
-                            }
-                        </style>
 
                         <!-- Decorative line above title -->
-                        <line x1="50" y1="40" x2="500" y2="40" class="line" style="animation-delay: 2.5s;"/>
+                        <line x1="50" y1="40" x2="500" y2="40" class="line line--top"/>
 
                         <!-- Title Text -->
-                        <text x="50" y="100" class="title" style="animation-delay: 3s;">
+                        <text x="50" y="100" class="title title--first">
                             Arquitectura atemporal,
                         </text>
-                        <text x="50" y="180" class="title" style="animation-delay: 3.5s;">
+                        <text x="50" y="180" class="title title--second">
                             impulsada por la visión
                         </text>
 
                         <!-- Decorative line below title -->
-                        <line x1="50" y1="340" x2="1100" y2="340" class="line-long" style="animation-delay: 5.5s;"/>
+                        <line x1="50" y1="340" x2="1100" y2="340" class="line-long line--bottom"/>
 
                         <!-- Subtitle Text -->
-                        <text x="50" y="240" class="subtitle" style="animation-delay: 4s;">
+                        <text x="50" y="240" class="subtitle subtitle--first">
                             Creamos espacios únicos que transforman
                         </text>
-                        <text x="50" y="280" class="subtitle" style="animation-delay: 4.5s;">
+                        <text x="50" y="280" class="subtitle subtitle--second">
                             la forma de vivir y trabajar,
                         </text>
-                        <text x="50" y="320" class="subtitle" style="animation-delay: 5s;">
+                        <text x="50" y="320" class="subtitle subtitle--third">
                             combinando diseño innovador con funcionalidad.
                         </text>
                     </svg>

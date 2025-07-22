@@ -1,396 +1,366 @@
 # Cinco Doce — Arquitectura Website
 
-Un sitio web moderno y elegante para Cinco Doce, firma de arquitectura y diseño contemporáneo en Colombia.
+![Cinco Doce Logo](images/logo_orange.webp)
 
-## 🚀 Características
+Un sitio web moderno y elegante para **Cinco Doce**, firma de arquitectura y diseño contemporáneo en Colombia. El sitio combina diseño minimalista con animaciones sofisticadas para crear una experiencia inmersiva que refleja la filosofía de la empresa: "Arquitectura atemporal, impulsada por la visión".
 
-- **Diseño Moderno**: Interfaz limpia y minimalista usando PicoCSS
-- **Totalmente Responsivo**: Optimizado para todos los dispositivos
-- **Multiidioma Avanzado**: Dos implementaciones disponibles (Custom + i18next)
-- **Rendimiento Optimizado**: Carga rápida con imágenes .webp y lazy loading
-- **Fuente Personalizada**: Soporte para tipografía custom de la marca
-- **SEO Optimizado**: Meta tags y estructura semántica
-- **Accesible**: Cumple con estándares de accesibilidad web
+## 🌟 Características Principales
 
-## 🌍 Sistemas de Internacionalización
+### 🎨 **Diseño y Experiencia**
+- **Interfaz Minimalista**: Diseño limpio que enfoca la atención en los proyectos
+- **Totalmente Responsivo**: Experiencia optimizada para todos los dispositivos
+- **Animaciones Cinematográficas**: Transiciones suaves y efectos visuales elegantes
+- **Tipografía Personalizada**: Fuente custom `cincodoce-font.ttf` para identidad de marca
+- **Tema Oscuro Elegante**: Paleta de colores sophisticated en tonos oscuros
 
-### **Opción 1: Sistema Custom (Actual - `index.html`)**
-✅ **Ventajas:**
-- Ultra liviano (~3KB)
-- Sin dependencias externas
-- Carga instantánea
-- Fácil de mantener
-- Perfecto para sitios estáticos
+### ⚡ **Rendimiento y Tecnología**
+- **Carga Ultra Rápida**: Imágenes optimizadas en formato WebP con lazy loading
+- **Scroll Suave Cinematográfico**: Implementado con Lenis.js para fluidez premium
+- **Partículas 3D Interactivas**: Sistema de partículas Three.js que responde al scroll
+- **Animaciones de Alto Rendimiento**: GSAP para animaciones fluidas y optimizadas
+- **SEO Completamente Optimizado**: Meta tags, Open Graph, y estructura semántica
 
-❌ **Limitaciones:**
-- Sin pluralización automática
-- Sin formateo de fechas/números
-- Sin interpolación de variables
+### 🏗️ **Arquitectura del Código**
+- **Modular y Escalable**: Código organizado en módulos independientes
+- **ES6+ JavaScript**: Sintaxis moderna y buenas prácticas
+- **CSS Organizados**: Variables CSS, metodología component-based
+- **Sin Dependencias CDN**: Todas las librerías servidas localmente
 
-### **Opción 2: i18next Professional (`index-i18n.html`)**
-✅ **Ventajas Avanzadas:**
-- **Pluralización inteligente** para todos los idiomas
-- **Formateo automático** de fechas y números según locale
-- **Interpolación de variables** (ej: "Mostrando {{count}} proyectos")
-- **Lazy loading** de traducciones
-- **Namespaces** para organizar traducciones
-- **Fallbacks** automáticos si falta una traducción
-- **Detección automática** de idioma del navegador
-- **Transiciones suaves** entre idiomas
+## 🚀 Demo en Vivo
 
-❌ **Consideraciones:**
-- Mayor tamaño (~50KB adicionales)
-- Más complejo de configurar
-
-## 🌍 Comparación de Implementaciones
-
-### Sistema Custom vs i18next
-
-| Característica | Custom | i18next |
-|---|---|---|
-| **Tamaño del bundle** | ~3KB | ~50KB |
-| **Velocidad de carga** | ⚡ Instantáneo | 🟡 Rápido |
-| **Configuración** | ✅ Simple | 🟡 Intermedio |
-| **Mantenimiento** | ✅ Fácil | 🟡 Moderado |
-| **Pluralización** | ❌ Manual | ✅ Automática |
-| **Formateo de fechas** | ❌ Manual | ✅ Automático |
-| **Variables en texto** | ❌ No | ✅ Sí |
-| **Detección de idioma** | ❌ No | ✅ Automática |
-| **Namespaces** | ❌ No | ✅ Sí |
-| **Lazy loading** | ❌ No | ✅ Sí |
-
-### Ejemplos de Características Avanzadas i18next
-
-#### Pluralización Inteligente
-```javascript
-// Español: "Mostrando 1 proyecto" vs "Mostrando 5 proyectos"
-// Inglés: "Showing 1 project" vs "Showing 5 projects" 
-// Árabe: Reglas de plural complejas automáticas
-i18next.t('projects.count', { count: 5 })
-```
-
-#### Formateo de Fechas por Locale
-```javascript
-// Español: "15 de marzo de 2024"
-// Inglés: "March 15, 2024"
-// Árabe: "١٥ مارس ٢٠٢٤"
-i18next.t('projects.completed', { date: '2024-03-15' })
-```
-
-#### Interpolación de Variables
-```javascript
-// "© 2025 Cinco Doce. Todos los derechos reservados."
-i18next.t('footer.copyright', { year: 2025 })
-```
-
-## 🎯 Recomendación
-
-**Para Cinco Doce recomendamos el sistema CUSTOM** porque:
-- Su contenido es principalmente estático
-- Prioriza velocidad de carga (crucial para arquitectura)
-- Fácil mantenimiento
-- Todas las funciones necesarias están cubiertas
-
-**Usa i18next SI:**
-- Planeas contenido dinámico frecuente
-- Necesitas pluralización compleja
-- Quieres formateo automático de fechas/números
-- El sitio crecerá significativamente
+Visita el sitio en producción: [cincodocestudio.com](https://cincodocestudio.com)
 
 ## 📁 Estructura del Proyecto
 
 ```
 cinco-doce-website/
-├── index.html              # Implementación CUSTOM (recomendada)
-├── index-i18n.html         # Implementación i18next (avanzada)
-├── style.css               # Estilos + soporte multiidioma
-├── script.js               # JavaScript custom
-├── script-i18n.js          # JavaScript con i18next
-├── translations.js         # Traducciones custom
-├── i18n-config.js          # Configuración i18next
-├── fonts/                  # Fuentes personalizadas
-├── images/                 # Imágenes optimizadas
-└── README.md               # Este archivo
+├── 📄 index.html              # Página principal
+├── 📦 package.json            # Configuración del proyecto
+├── ⚙️ start-dev.sh            # Script de desarrollo
+│
+├── 🎨 css/                    # Estilos organizados
+│   ├── pico.min.css          # Framework CSS base (minimalista)
+│   ├── base.css              # Variables, fuentes, estilos base
+│   └── components.css        # Componentes específicos y animaciones
+│
+├── ⚡ js/                     # JavaScript modular
+│   ├── 📚 libs/              # Librerías externas (locales)
+│   │   ├── gsap.min.js       # Animaciones de alto rendimiento
+│   │   ├── lenis.min.js      # Scroll suave cinematográfico
+│   │   ├── ScrollTrigger.min.js # Animaciones basadas en scroll
+│   │   ├── three.min.js      # Motor 3D para partículas
+│   │   └── three.module.js   # Módulos Three.js
+│   │
+│   ├── 🔄 loader.js          # Sistema de carga de página
+│   ├── 🎯 main.js            # Controlador principal de la app
+│   ├── 🧭 navigation.js      # Lógica de navegación
+│   ├── ✨ particles.js       # Sistema de partículas 3D
+│   ├── 🖼️ projects-slider.js  # Carrusel de proyectos
+│   └── 📜 scroll.js          # Configuración de scroll suave
+│
+├── 🔤 fonts/                 # Tipografía personalizada
+│   └── cincodoce-font.ttf    # Fuente custom de la marca
+│
+├── 🖼️ images/                # Assets optimizados
+│   ├── contexto_concrete.webp # Imagen principal proyectos
+│   ├── favicon.ico           # Favicon del sitio
+│   ├── instagram_logo.webp   # Icono Instagram
+│   ├── logo_orange.webp      # Logo principal
+│   └── whatsapp_logo.webp    # Icono WhatsApp
+│
+└── 📖 README.md              # Esta documentación
 ```
 
-## 🖼️ Imágenes Necesarias
+## 🛠️ Tecnologías Utilizadas
 
-Para completar el sitio, necesitarás agregar las siguientes imágenes en formato .webp (optimizadas para web):
+| Tecnología | Propósito | Versión |
+|------------|-----------|---------|
+| **HTML5** | Estructura semántica | Latest |
+| **CSS3** | Estilos y animaciones | Latest |
+| **JavaScript ES6+** | Lógica e interactividad | Latest |
+| **Three.js** | Gráficos 3D y partículas | Latest |
+| **GSAP** | Animaciones premium | Latest |
+| **Lenis** | Scroll suave cinematográfico | Latest |
+| **PicoCSS** | Framework CSS minimalista | v1.5+ |
 
-1. `casa-madera.webp` - Casa de Madera Moderna
-2. `fachada-luz.webp` - Fachada de Luz
-3. `oficinas-minimalistas.webp` - Oficinas Minimalistas
-4. `casa-patio.webp` - Casa del Patio
-5. `loft-urbano.webp` - Loft Urbano
-6. `hotel-boutique.webp` - Hotel Boutique
+## 🚀 Instalación y Desarrollo
 
-**Recomendaciones para las imágenes:**
-- Formato: .webp para mejor compresión
-- Dimensiones: 800x600px mínimo
-- Calidad: 85-90% para balance entre calidad y tamaño
-- Herramientas recomendadas: [Squoosh](https://squoosh.app/) o [TinyPNG](https://tinypng.com/)
+### Requisitos Previos
+- Node.js 14.0.0 o superior
+- NPM (incluido con Node.js)
+- Git
 
-## 🔤 Fuente Personalizada
+### Instalación Rápida
 
-Agrega tu fuente personalizada en la carpeta `fonts/`:
-- Nombre sugerido: `CincoDoce-Regular.ttf`
-- El CSS ya está configurado para cargar automáticamente
-- Formatos soportados: .ttf, .otf, .woff, .woff2
+```bash
+# Clonar el repositorio
+git clone https://github.com/tu-usuario/cinco-doce-website.git
+cd cinco-doce-website
 
-## 📱 Información de Contacto
+# Instalar dependencias
+npm install
 
-Actualiza los siguientes enlaces en `index.html`:
-
-```html
-<!-- WhatsApp -->
-<a href="https://wa.me/573001234567" target="_blank">
-
-<!-- Instagram -->
-<a href="https://www.instagram.com/______cincodoce/" target="_blank">
-
-<!-- Email -->
-<p>hola@cincodoce.com</p>
+# Iniciar servidor de desarrollo
+npm run dev
 ```
 
-## 🌐 Despliegue
+El sitio estará disponible en `http://localhost:3000`
 
-### Vercel (Recomendado)
-1. Sube el proyecto a GitHub
-2. Conecta tu cuenta de GitHub con [Vercel](https://vercel.com)
-3. Importa tu repositorio
-4. Framework: None (sitio estático)
-5. Directorio de salida: `/` (raíz)
-6. Configura despliegue automático
+### Opciones de Desarrollo
 
-### Netlify
-1. Arrastra la carpeta del proyecto a [Netlify](https://netlify.com)
-2. O conecta con GitHub para despliegue automático
+#### 🟢 **Método Recomendado (NPM)**
+```bash
+npm run dev          # Servidor con auto-apertura del navegador
+npm start            # Servidor básico en puerto 3000
+```
 
-### GitHub Pages
-1. Sube a GitHub
-2. Ve a Settings > Pages
-3. Selecciona la rama `main` como fuente
+#### 🔧 **Script de Desarrollo Personalizado**
+```bash
+# Hacer ejecutable (solo primera vez)
+chmod +x start-dev.sh
+
+# Ejecutar
+./start-dev.sh
+```
+
+#### 🐍 **Servidor Python (Alternativo)**
+```bash
+npm run serve        # Usa Python HTTP server
+```
+
+#### 🆚 **VS Code Live Server**
+Instala la extensión "Live Server" y abre `index.html`
 
 ## 🎨 Personalización
 
-### Colores
-Los colores principales se definen en las variables CSS al inicio de `style.css`:
+### 🎨 **Colores y Tema**
+
+Los colores se definen en `css/base.css`:
 
 ```css
 :root {
-  --primary-color: #2c2c2c;    /* Color principal */
-  --accent-color: #007bff;     /* Color de acento */
-  --text-color: #333;          /* Color de texto */
+  /* Colores principales */
+  --color-background-primary: #121212;   /* Fondo principal */
+  --color-background-secondary: #1C1C1C; /* Fondo secundario */
+  --color-accent: #e85015;                /* Color de acento (naranja) */
+  --color-text-primary: #FFFFFF;         /* Texto principal */
+  --color-text-secondary: #B3B3B3;       /* Texto secundario */
 }
 ```
 
-### Tipografía
-Para cambiar la fuente, modifica la regla `@font-face` en `style.css` y actualiza el nombre del archivo.
+### 🔤 **Tipografía**
 
-### Contenido
-Edita directamente el contenido en `index.html`:
-- Títulos y descripciones de proyectos
-- Información de contacto
-- Textos del hero y secciones
+Para cambiar la fuente personalizada:
 
-## 🔧 Desarrollo Local
+1. Coloca la nueva fuente en `fonts/`
+2. Actualiza en `css/base.css`:
 
-Simplemente abre `index.html` en tu navegador o usa un servidor local:
-
-```bash
-# Con Python
-python -m http.server 8000
-
-# Con Node.js (npx)
-npx serve .
-
-# Con VS Code Live Server extension
+```css
+@font-face {
+  font-family: 'CincoDoceFont';
+  src: url('../fonts/tu-nueva-fuente.ttf') format('truetype');
+  font-display: swap;
+}
 ```
 
-## 📈 Métricas y Análisis
+### 📝 **Contenido**
 
-El sitio está preparado para futuras integraciones:
-- Google Analytics (agregar tracking ID)
-- Google Tag Manager
-- Facebook Pixel
-- Métricas de rendimiento
+Edita directamente en `index.html`:
+- Textos del hero section
+- Información de proyectos
+- Datos de contacto
+- Meta tags SEO
 
-## 🔮 Funcionalidades Futuras
+### ✨ **Animaciones**
 
-La arquitectura está diseñada para soportar:
-- Sistema de login/admin
-- CMS headless (Contentful, Strapi)
-- Blog de proyectos
-- Herramientas de IA
-- Pagos online
-- Progressive Web App (PWA)
+Las animaciones se configuran en `css/components.css`:
+- Hero SVG animations
+- Transiciones de componentes
+- Efectos hover y estados
 
-## 📞 Soporte
+## 📞 Información de Contacto
 
-Para preguntas sobre el desarrollo o personalizaciones, contacta al equipo de desarrollo.
+Actualiza los enlaces de contacto en `index.html`:
+
+```html
+<!-- WhatsApp -->
+<a href="https://wa.me/573001234567" target="_blank" rel="noopener">
+
+<!-- Instagram -->
+<a href="https://www.instagram.com/______cincodoce/" target="_blank" rel="noopener">
+
+<!-- Email -->
+<p>contexto512studio@gmail.com</p>
+```
+
+## 🌐 Despliegue en Producción
+
+### 🔥 **Vercel (Recomendado)**
+```bash
+# Instalar Vercel CLI
+npm i -g vercel
+
+# Desplegar
+vercel
+
+# Configuración:
+# Framework: None (sitio estático)
+# Build Command: [dejar vacío]
+# Output Directory: [dejar vacío - usa raíz]
+```
+
+### 🚀 **Netlify**
+1. Arrastra la carpeta del proyecto a [netlify.com](https://netlify.com)
+2. O conecta con GitHub para despliegue automático
+3. Build settings: deja todo en blanco (sitio estático)
+
+### 📄 **GitHub Pages**
+```bash
+# En tu repositorio GitHub:
+# Settings > Pages > Source: Deploy from branch > main
+```
+
+### 🐳 **Docker (Opcional)**
+```dockerfile
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
+```
+
+## 🔧 Scripts Disponibles
+
+```bash
+npm run dev      # Servidor desarrollo con auto-apertura
+npm start        # Servidor desarrollo básico
+npm run build    # No se requiere build (archivos estáticos)
+npm run serve    # Servidor Python alternativo
+```
+
+## 🎯 Características Técnicas Avanzadas
+
+### ✨ **Sistema de Partículas**
+- Renderizado WebGL con Three.js
+- Partículas que responden al scroll
+- Optimizado para 60fps en dispositivos móviles
+- Efectos de profundidad y parallax
+
+### 📜 **Scroll Cinematográfico**
+- Lenis.js para suavidad premium
+- Interpolación personalizada
+- ScrollTrigger para animaciones basadas en posición
+- Optimizado para rendimiento
+
+### 🔄 **Sistema de Carga**
+- Loader SVG personalizado con animación
+- Carga progresiva de assets
+- Transiciones suaves entre estados
+- Fallbacks para compatibilidad
+
+### 🎨 **Animaciones Hero**
+- SVG animado con trazos progresivos
+- Delays escalonados para efecto cinematográfico
+- Tipografía animada palabra por palabra
+- Responsive en todos los dispositivos
+
+## 📊 Optimizaciones de Rendimiento
+
+### 🖼️ **Imágenes**
+- Formato WebP para 30-50% menos peso
+- Lazy loading nativo para carga rápida
+- Dimensiones optimizadas para diferentes viewports
+
+### 💾 **Caching**
+- Service Worker ready (futuro)
+- Headers de cache optimizados
+- Compresión gzip/brotli en servidor
+
+### 📱 **Mobile First**
+- Diseño responsive desde mobile
+- Touch gestures optimizados
+- Animaciones adaptadas para dispositivos táctiles
+
+## 🔮 Roadmap y Futuras Características
+
+### 🔐 **Fase 2: Backend**
+- [ ] Sistema de login para admin
+- [ ] CMS headless (Strapi/Contentful)
+- [ ] API para gestión de proyectos
+
+### 🤖 **Fase 3: IA y Automatización**
+- [ ] Generador automático de cotizaciones
+- [ ] Chatbot con IA para consultas
+- [ ] Análisis automático de fotos de proyectos
+
+### 💳 **Fase 4: E-commerce**
+- [ ] Sistema de pagos (Stripe/MercadoPago)
+- [ ] Productos digitales (planos, consultas)
+- [ ] Subscripciones para servicios premium
+
+### 📈 **Fase 5: Analytics**
+- [ ] Dashboard de métricas avanzadas
+- [ ] A/B testing automatizado
+- [ ] Heatmaps y análisis de UX
+
+## 🐛 Solución de Problemas
+
+### ❌ **Problemas Comunes**
+
+**El servidor no inicia:**
+```bash
+# Verificar Node.js
+node --version  # Debe ser 14.0.0+
+
+# Reinstalar dependencias
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**Las animaciones no funcionan:**
+- Verifica que JavaScript esté habilitado
+- Revisa la consola del navegador para errores
+- Asegúrate de que los archivos JS se cargan correctamente
+
+**Las imágenes no cargan:**
+- Verifica que las rutas sean correctas
+- Confirma que el servidor sirve archivos estáticos
+- Revisa permisos de archivos
+
+### 🔍 **Debug Mode**
+
+Para desarrolladores, agrega esto a la consola:
+```javascript
+// Habilitar logs detallados
+window.DEBUG_MODE = true;
+
+// Ver estado de la aplicación
+console.log(window.CincoDoce);
+```
+
+## 🤝 Contribución
+
+Este es un proyecto privado para Cinco Doce. Para sugerencias o mejoras:
+
+1. Crea un issue describiendo la mejora
+2. Fork el proyecto (si tienes acceso)
+3. Crea una rama para tu feature
+4. Commit tus cambios
+5. Crea un Pull Request
+
+## 📜 Licencia
+
+© 2025 Cinco Doce. Todos los derechos reservados.
+
+Este proyecto es propiedad de Cinco Doce y está protegido por derechos de autor. No está permitido el uso, distribución o modificación sin autorización expresa.
+
+## 👥 Créditos
+
+**Diseño y Desarrollo:** Equipo Cinco Doce  
+**Arquitectura Web:** Especialistas en desarrollo frontend  
+**Consultoría UX:** Expertos en experiencia de usuario  
 
 ---
 
-**Cinco Doce** — Arquitectura atemporal, impulsada por la visión
+### 🏗️ **Cinco Doce** — *Arquitectura atemporal, impulsada por la visión*
 
-## 🔧 Configuración de Idiomas
-
-### Agregar Nuevos Idiomas
-
-Para agregar un nuevo idioma:
-
-1. Abre `translations.js`
-2. Agrega el nuevo código de idioma al objeto `translations`
-3. Agrega la configuración del idioma al objeto `languageConfig`
-4. Traduce todos los textos necesarios
-
-Ejemplo para agregar Italiano:
-
-```javascript
-// En translations.js
-it: {
-    'nav-home': 'Home',
-    'nav-projects': 'Progetti',
-    'nav-contact': 'Contatti',
-    // ... más traducciones
-}
-
-// En languageConfig
-it: { name: 'Italiano', flag: '🇮🇹', code: 'IT' }
-```
-
-### Modificar Traducciones
-
-Todas las traducciones están centralizadas en `translations.js`. Simplemente modifica los valores para el idioma correspondiente.
-
-### API JavaScript
-
-El sistema de idiomas expone las siguientes funciones:
-
-```javascript
-// Cambiar idioma programáticamente
-CincoDoce.changeLanguage('en');
-
-// Obtener idioma actual
-const current = CincoDoce.getCurrentLanguage();
-
-// Obtener lista de idiomas soportados
-const languages = CincoDoce.getSupportedLanguages();
-```
-
-## 🎨 Personalización de Idiomas
-
-### Soporte RTL
-
-Para idiomas que se escriben de derecha a izquierda (como el árabe), el sistema automáticamente:
-- Cambia la dirección del texto a RTL
-- Ajusta el layout de navegación
-- Reorganiza elementos de interfaz
-- Aplica estilos específicos para RTL
-
-### Fuentes Personalizadas por Idioma
-
-Puedes agregar fuentes específicas para ciertos idiomas modificando el CSS:
-
-```css
-/* Ejemplo para idiomas asiáticos */
-[lang="zh"], [lang="ja"], [lang="ko"] {
-    font-family: 'Noto Sans CJK', 'CincoDoceFont', sans-serif;
-}
-
-/* Ejemplo para árabe */
-[lang="ar"] {
-    font-family: 'Noto Sans Arabic', 'CincoDoceFont', sans-serif;
-}
-```
-
-## 🔄 Cómo Cambiar Entre Implementaciones
-
-### Para usar el sistema CUSTOM (actual):
-1. Usa `index.html` como página principal
-2. Incluye `script.js` y `translations.js`
-3. Mantiene el máximo rendimiento
-
-### Para cambiar a i18next:
-1. Renombra `index.html` a `index-custom.html`
-2. Renombra `index-i18n.html` a `index.html` 
-3. Verifica que `i18n-config.js` y `script-i18n.js` estén incluidos
-4. La configuración está lista para usar
-
-## 🛠️ Configuración i18next (Solo si eliges la opción avanzada)
-
-### Agregar Nuevos Idiomas en i18next
-```javascript
-// En i18n-config.js, agrega al objeto i18nResources:
-pt: {
-    translation: {
-        nav: {
-            home: "Início",
-            projects: "Projetos", 
-            contact: "Contato"
-        },
-        // ... más traducciones
-    }
-}
-```
-
-### API JavaScript i18next
-```javascript
-// Cambiar idioma
-await CincoDoce.changeLanguage('en');
-
-// Obtener traducción con variables
-const text = CincoDoce.translate('projects.count', { count: 6 });
-
-// Formatear fecha según idioma actual
-const formattedDate = CincoDoce.formatDate('2024-03-15', 'es');
-```
-
-## 💡 LED Strip Light Effect
-
-El sitio incluye un sofisticado efecto de luz LED debajo de la barra de navegación, implementado con Three.js.
-
-### Características del Efecto
-- **Renderizado continuo**: Tira de luz suave sin LEDs discretos
-- **Shader personalizado**: Gradiente amarillo-naranja con efecto bloom
-- **Totalmente responsivo**: Se adapta al ancho de la ventana
-- **Rendimiento optimizado**: Utiliza WebGL para renderizado eficiente
-- **Inicialización automática**: Se carga dinámicamente después del DOM
-
-### Sistema de Inicialización
-
-#### Auto-inicialización
-El efecto se inicializa automáticamente cuando se carga la página:
-
-```html
-<!-- En index.html -->
-<script type="module" src="led-strip-initializer.js"></script>
-```
-
-#### Inicialización Manual
-Para control avanzado, puedes usar el sistema de inicialización manual:
-
-```javascript
-import { initializeLEDStrip, LEDStripInitializer } from './led-strip-initializer.js';
-
-// Método simple
-const effect = await initializeLEDStrip();
-
-// Método avanzado con configuración personalizada
-const initializer = new LEDStripInitializer();
-initializer.containerHeight = 120;  // Altura personalizada
-initializer.navbarHeight = 70;      // Altura de navbar personalizada
-const effect = await initializer.init();
-```
-
-### Archivos del Sistema LED
-- `led-effect.js`: Clase principal LEDStripEffect con renderizado Three.js
-- `led-strip-initializer.js`: Utilidad de inicialización y gestión de contenedor
-- `led-demo.js`: Ejemplos de uso y configuración avanzada
-
-### Contenedor Dinámico
-Si el contenedor `#light-effect` no existe, se crea automáticamente con:
-- Posición absoluta debajo de la navbar
-- Altura de 100px por defecto
-- Ancho completo de la ventana
-- Z-index apropiado para visibilidad
+**¿Tienes un proyecto en mente?**  
+📞 [WhatsApp](https://wa.me/573001234567) | 📸 [Instagram](https://www.instagram.com/______cincodoce/) | ✉️ contexto512studio@gmail.com
