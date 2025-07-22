@@ -2,22 +2,81 @@
  * Advanced Particle System with Physics and Scroll Integration
  * Simulates floating dust particles with realistic physics and scroll-reactive behavior
  */
+
+/**
+ * Easing Functions - JavaScript implementations of cubic-bezier curves
+ * These create natural, sophisticated movement patterns
+ */
+class EasingFunctions {
+    // Cubic-bezier easing curves adapted from CSS
+    static easeInQuad(t) {
+        return t * t;
+    }
+    
+    static easeOutQuad(t) {
+        return t * (2 - t);
+    }
+    
+    static easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+    
+    static easeInCubic(t) {
+        return t * t * t;
+    }
+    
+    static easeOutCubic(t) {
+        return (--t) * t * t + 1;
+    }
+    
+    static easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+    }
+    
+    static easeInQuart(t) {
+        return t * t * t * t;
+    }
+    
+    static easeOutQuart(t) {
+        return 1 - (--t) * t * t * t;
+    }
+    
+    static easeInOutQuart(t) {
+        return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+    }
+    
+    static easeOutExpo(t) {
+        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+    
+    static easeInOutSine(t) {
+        return -(Math.cos(Math.PI * t) - 1) / 2;
+    }
+    
+    static easeOutCirc(t) {
+        return Math.sqrt(1 - Math.pow(t - 1, 2));
+    }
+}
+
 class ParticleSystem {
     constructor(options = {}) {
-        // Configuration with sensible defaults
+        // Configuration following the design specifications with enhanced luminosity
         this.config = {
             particleCount: this.getOptimalParticleCount(),
             containerSelector: 'body',
             canvasId: 'particle-canvas',
-            colors: ['#ffffff', '#e85015', '#ff6b35'],
-            size: { min: 0.5, max: 2.0 },
-            speed: { min: 0.2, max: 0.8 },
-            opacity: { min: 0.3, max: 0.8 },
-            driftStrength: 0.5,
-            scrollInfluence: 2.0,
-            mouseInfluence: 1.5,
+            colors: ['#ffffff', '#f8f8f8', '#f0f0f0', '#e8e8e8'], // Brighter whites for better light emission
+            size: { min: 0.8, max: 2.2 },
+            speed: { min: 0.02, max: 0.15 },
+            opacity: { min: 0.4, max: 0.8 },
+            driftStrength: 0.8,
+            scrollInfluence: 2.5, // Enhanced scroll acceleration
+            mouseInfluence: 1.2,
             enableGlow: true,
             enableDepth: true,
+            size: { min: 1.5, max: 2.5 },
+            opacity: { min: 0.2, max: 0.6 },        
+            glowIntensity: 2,
             ...options
         };
         
@@ -40,20 +99,14 @@ class ParticleSystem {
         // Performance tracking
         this.frameCount = 0;
         this.lastFPSCheck = Date.now();
-        this.currentFPS = 60;
+        this.currentFPS = 120;
         
         this.init();
     }
     
     getOptimalParticleCount() {
-        // Dynamic particle count based on device capabilities
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const isLowPowerDevice = navigator.hardwareConcurrency <= 4;
-        const hasReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        
-        if (hasReducedMotion) return 50;
-        if (isMobile) return isLowPowerDevice ? 100 : 200;
-        return isLowPowerDevice ? 300 : 500;
+        // Fixed particle count as requested - 50 floating particles
+        return 50;
     }
     
     init() {
@@ -89,10 +142,16 @@ class ParticleSystem {
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.8;
+            background-color: transparent;
+            opacity: 1.0;
         `;
         
         const container = document.querySelector(this.config.containerSelector);
+        if (!container) {
+            console.error('❌ Container not found:', this.config.containerSelector);
+            return;
+        }
+        
         container.appendChild(canvas);
         
         this.renderer = new THREE.WebGLRenderer({
@@ -105,7 +164,7 @@ class ParticleSystem {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
         
-        // Enable transparency blending for glow effects
+        // Enable transparent background so particles show behind content
         this.renderer.setClearColor(0x000000, 0);
     }
     
@@ -124,6 +183,9 @@ class ParticleSystem {
     }
     
     createParticles() {
+        // Ensure particles array is initialized
+        this.particles = [];
+        
         // Create geometry
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(this.config.particleCount * 3);
@@ -136,12 +198,12 @@ class ParticleSystem {
         for (let i = 0; i < this.config.particleCount; i++) {
             const i3 = i * 3;
             
-            // Random positions in 3D space
+            // Random positions with depth-based distribution
             positions[i3] = (Math.random() - 0.5) * 2000;
             positions[i3 + 1] = (Math.random() - 0.5) * 2000;
-            positions[i3 + 2] = (Math.random() - 0.5) * 1000;
+            positions[i3 + 2] = (Math.random() - 0.5) * 1200; // Extended depth range
             
-            // Random colors
+            // Random colors (white to very light gray)
             const color = new THREE.Color(
                 this.config.colors[Math.floor(Math.random() * this.config.colors.length)]
             );
@@ -149,8 +211,9 @@ class ParticleSystem {
             colors[i3 + 1] = color.g;
             colors[i3 + 2] = color.b;
             
-            // Random sizes
-            sizes[i] = Math.random() * (this.config.size.max - this.config.size.min) + this.config.size.min;
+            // Size based on depth for better 3D effect
+            const depthFactor = (positions[i3 + 2] + 600) / 1200; // 0 to 1
+            sizes[i] = (Math.random() * (this.config.size.max - this.config.size.min) + this.config.size.min) * (0.5 + depthFactor);
             
             // Initial velocities
             velocities[i3] = (Math.random() - 0.5) * this.config.speed.max;
@@ -160,7 +223,8 @@ class ParticleSystem {
             // Random opacity
             opacities[i] = Math.random() * (this.config.opacity.max - this.config.opacity.min) + this.config.opacity.min;
             
-            // Store additional particle data
+            // Store additional particle data with depth information
+            const depth = (positions[i3 + 2] + 600) / 1200; // Normalized depth 0-1
             this.particles[i] = {
                 originalX: positions[i3],
                 originalY: positions[i3 + 1],
@@ -169,7 +233,9 @@ class ParticleSystem {
                 baseVelY: velocities[i3 + 1],
                 baseVelZ: velocities[i3 + 2],
                 phase: Math.random() * Math.PI * 2,
-                scrollOffset: Math.random() * 100
+                scrollOffset: Math.random() * 100,
+                depth: depth, // Store depth for movement calculations
+                depthSpeed: 0.5 + depth * 1.5 // Different speeds based on depth
             };
         }
         
@@ -180,19 +246,72 @@ class ParticleSystem {
         geometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1));
         geometry.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
         
-        // Create points material with additive blending
+        // Create the glowing particle texture
+        const particleTexture = this.createGlowingParticleTexture();
+        
+        // Create enhanced points material with circular, glowing texture
         const material = new THREE.PointsMaterial({
-            size: 3,
+            size: 12, // Increased size to show the glow effect better
+            map: particleTexture, // Apply the custom circular texture
             transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending,
+            opacity: 0.9,
+            blending: THREE.AdditiveBlending, // Creates beautiful light emission effect
             depthWrite: false,
-            vertexColors: true
+            vertexColors: true,
+            sizeAttenuation: true,
+            alphaTest: 0.01 // Very low threshold for smooth circular edges
         });
         
         // Create points system
         this.particleSystem = new THREE.Points(geometry, material);
         this.scene.add(this.particleSystem);
+    }
+    
+    createGlowingParticleTexture() {
+        // Create a high-resolution canvas for the glowing particle texture
+        const canvas = document.createElement('canvas');
+        canvas.width = 128;
+        canvas.height = 128;
+        const context = canvas.getContext('2d');
+        
+        const centerX = 64;
+        const centerY = 64;
+        const maxRadius = 64;
+        
+        // Clear the canvas with transparency
+        context.clearRect(0, 0, 128, 128);
+        
+        // Create the outer glow (white, very diffuse)
+        const outerGlow = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius);
+        outerGlow.addColorStop(0, 'rgba(255, 100, 100, 0.0)'); // Transparent at center (will be overridden)
+        outerGlow.addColorStop(0.1, 'rgba(255, 200, 200, 0.4)'); // Soft red-white transition
+        outerGlow.addColorStop(0.3, 'rgba(255, 255, 255, 0.3)'); // White glow
+        outerGlow.addColorStop(0.6, 'rgba(255, 255, 255, 0.1)'); // Fading white
+        outerGlow.addColorStop(1, 'rgba(255, 255, 255, 0.0)'); // Transparent edge
+        
+        context.fillStyle = outerGlow;
+        context.fillRect(0, 0, 128, 128);
+        
+        // Create the bright red core
+        const coreGlow = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, 20);
+        coreGlow.addColorStop(0, 'rgba(255, 50, 50, 1.0)'); // Bright red center
+        coreGlow.addColorStop(0.3, 'rgba(255, 100, 100, 0.8)'); // Red fade
+        coreGlow.addColorStop(0.6, 'rgba(255, 150, 150, 0.4)'); // Red to white transition
+        coreGlow.addColorStop(1, 'rgba(255, 200, 200, 0.0)'); // Transparent
+        
+        // Use screen blend mode for the core to create bright effect
+        context.globalCompositeOperation = 'screen';
+        context.fillStyle = coreGlow;
+        context.fillRect(0, 0, 128, 128);
+        
+        // Reset composite operation
+        context.globalCompositeOperation = 'source-over';
+        
+        // Create and return the texture
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        
+        return texture;
     }
     
     bindEvents() {
@@ -256,12 +375,16 @@ class ParticleSystem {
     }
     
     updateParticles() {
-        if (!this.particleSystem) return;
+        if (!this.particleSystem || !this.particles || this.particles.length === 0) {
+            return;
+        }
         
-        this.time += 0.01;
+        this.time += 0.008; // Slower time increment for gentler movement
         
-        // Smooth scroll interpolation
-        this.scrollY += (this.targetScrollY - this.scrollY) * 0.1;
+        // Smooth scroll interpolation with controlled easing
+        const scrollDiff = Math.abs(this.targetScrollY - this.scrollY);
+        const scrollEase = Math.min(scrollDiff / 100, 1) * 0.08;
+        this.scrollY += (this.targetScrollY - this.scrollY) * (0.05 + scrollEase);
         
         const positions = this.particleSystem.geometry.attributes.position.array;
         const velocities = this.particleSystem.geometry.attributes.velocity.array;
@@ -270,40 +393,57 @@ class ParticleSystem {
             const i3 = i * 3;
             const particle = this.particles[i];
             
-            // Base drift motion
-            const drift = Math.sin(this.time + particle.phase) * this.config.driftStrength;
+            // Safety check for particle data
+            if (!particle) {
+                continue;
+            }
             
-            // Scroll influence
-            const scrollInfluence = (this.scrollY - this.targetScrollY) * this.config.scrollInfluence * 0.01;
+            // Gentle organic drift with controlled amplitude
+            const timeOffset = this.time * particle.depthSpeed * 0.5 + particle.phase;
             
-            // Mouse influence
-            const mouseDistX = this.mouseX * 100 - positions[i3];
-            const mouseDistY = this.mouseY * 100 - positions[i3 + 1];
+            // Simple sine/cosine drift - much more controlled
+            const driftX = Math.sin(timeOffset) * this.config.driftStrength * 0.2;
+            const driftY = Math.cos(timeOffset * 0.7) * this.config.driftStrength * 0.15;
+            const driftZ = Math.sin(timeOffset * 0.5) * this.config.driftStrength * 0.08;
+            
+            // Very subtle scroll influence
+            const scrollDelta = this.scrollY - this.targetScrollY;
+            const scrollAcceleration = scrollDelta * 0.001 * particle.depthSpeed;
+            
+            // Gentle mouse interaction
+            const mouseDistX = this.mouseX * 50 - positions[i3];
+            const mouseDistY = this.mouseY * 50 - positions[i3 + 1];
             const mouseDistance = Math.sqrt(mouseDistX * mouseDistX + mouseDistY * mouseDistY);
-            const mouseInfluence = Math.max(0, (200 - mouseDistance) / 200) * this.config.mouseInfluence;
+            const mouseInfluence = Math.max(0, (100 - mouseDistance) / 100) * 0.1;
             
-            // Update velocities with physics
-            velocities[i3] += (drift + scrollInfluence * 0.5 + mouseDistX * mouseInfluence * 0.01) * 0.1;
-            velocities[i3 + 1] += (drift * 0.7 + scrollInfluence + mouseDistY * mouseInfluence * 0.01) * 0.1;
-            velocities[i3 + 2] += drift * 0.3;
+            // Very conservative velocity updates
+            velocities[i3] += driftX * 0.01 + mouseDistX * mouseInfluence * 0.0005;
+            velocities[i3 + 1] += driftY * 0.01 + scrollAcceleration + mouseDistY * mouseInfluence * 0.0005;
+            velocities[i3 + 2] += driftZ * 0.005;
             
-            // Apply damping
+            // Strong damping to prevent runaway velocities
             velocities[i3] *= 0.98;
             velocities[i3 + 1] *= 0.98;
-            velocities[i3 + 2] *= 0.98;
+            velocities[i3 + 2] *= 0.99;
+            
+            // Velocity clamping to prevent particles from moving too fast
+            const maxVel = 2.0;
+            velocities[i3] = Math.max(-maxVel, Math.min(maxVel, velocities[i3]));
+            velocities[i3 + 1] = Math.max(-maxVel, Math.min(maxVel, velocities[i3 + 1]));
+            velocities[i3 + 2] = Math.max(-maxVel, Math.min(maxVel, velocities[i3 + 2]));
             
             // Update positions
             positions[i3] += velocities[i3];
             positions[i3 + 1] += velocities[i3 + 1];
             positions[i3 + 2] += velocities[i3 + 2];
             
-            // Boundary wrapping
-            if (positions[i3] > 1000) positions[i3] = -1000;
-            if (positions[i3] < -1000) positions[i3] = 1000;
-            if (positions[i3 + 1] > 1000) positions[i3 + 1] = -1000;
-            if (positions[i3 + 1] < -1000) positions[i3 + 1] = 1000;
-            if (positions[i3 + 2] > 500) positions[i3 + 2] = -500;
-            if (positions[i3 + 2] < -500) positions[i3 + 2] = 500;
+            // Proper boundary wrapping without disappearing
+            if (positions[i3] > 1000) positions[i3] = -999;
+            if (positions[i3] < -1000) positions[i3] = 999;
+            if (positions[i3 + 1] > 1000) positions[i3 + 1] = -999;
+            if (positions[i3 + 1] < -1000) positions[i3 + 1] = 999;
+            if (positions[i3 + 2] > 600) positions[i3 + 2] = -599;
+            if (positions[i3 + 2] < -600) positions[i3 + 2] = 599;
         }
         
         // Mark for update

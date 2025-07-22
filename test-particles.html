@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        #info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            z-index: 100;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        #particle-canvas {
+            border: 2px solid red !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <div id="status">Loading...</div>
+        <div>Move mouse to interact with particles</div>
+        <div>Scroll to see scroll effects</div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="js/libs/three.min.js"></script>
+    <script src="js/particles.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const status = document.getElementById('status');
+            
+            // Check if Three.js loaded
+            if (typeof THREE === 'undefined') {
+                status.textContent = '❌ Three.js not loaded';
+                return;
+            }
+            
+            status.textContent = '✅ Three.js loaded, initializing particles...';
+            
+            // Initialize particles
+            try {
+                const particles = new ParticleSystem({
+                    particleCount: 200,
+                    containerSelector: 'body'
+                });
+                
+                setTimeout(() => {
+                    const canvas = document.getElementById('particle-canvas');
+                    if (canvas) {
+                        status.textContent = '✅ Particles initialized, canvas found';
+                        console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
+                        console.log('Canvas style:', canvas.style.cssText);
+                    } else {
+                        status.textContent = '❌ Canvas not found in DOM';
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                status.textContent = '❌ Error: ' + error.message;
+                console.error('Particle initialization error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

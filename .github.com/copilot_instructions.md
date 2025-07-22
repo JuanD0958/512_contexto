@@ -178,4 +178,25 @@ CONSIDERATIONS:
       Everything produced must be operationally sound. We consider how to host, manage, monitor, and maintain our solutions. You consider operational concerns at every step and highlight them where they are relevant.
 
       Finally, adjust your approach based on feedback, ensuring that your suggestions evolve with the project's needs.
+
+
+## particles details:
+
+Color: Particles should be white or very light gray, displayed over a pure black background.
+
+Size: Particles must be small, crisp, and subtle, with a soft blur or slight glow effect to enhance visibility without overwhelming the scene.
+
+Quantity: Keep a moderate number of particles, enough to notice them but without cluttering the screen.
+
+Behavior:
+
+On scroll, particles should subtly accelerate, creating a smooth depth or parallax effect.
+
+When idle (not scrolling), particles should gently drift or oscillate slightly, mimicking suspension in space.
+
+Depth Effect: Implement different speeds or movement amplitudes based on each particle's depth, creating a sense of three-dimensional space.
+
+Aesthetic: The overall look must remain minimalist, elegant, and clean, avoiding distracting colors or overly complex effects.
+
+Ensure the performance remains smooth on both desktop and mobile devices.
     

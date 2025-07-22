@@ -29,17 +29,21 @@ class App {
             // Initialize loader first
             this.initializeLoader();
             
-            // Initialize other modules synchronously after loader
+            // Initialize navigation and scroll immediately
             this.initializeNavigation();
             this.initializeSmoothScroll();
-            this.initializeParticles();
-            this.setupErrorHandling();
             
-            // Ensure main content is visible after everything is loaded
-            this.showMainContent();
-            
-            this.isInitialized = true;
-            console.log('✅ App initialization complete');
+            // Initialize particles after a short delay to ensure DOM is ready
+            setTimeout(() => {
+                this.initializeParticles();
+                this.setupErrorHandling();
+                
+                // Ensure main content is visible after everything is loaded
+                this.showMainContent();
+                
+                this.isInitialized = true;
+                console.log('✅ App initialization complete');
+            }, 1000);
             
         } catch (error) {
             console.error('❌ Error during app initialization:', error);
