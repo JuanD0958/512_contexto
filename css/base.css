@@ -9,9 +9,56 @@
   font-display: swap;
 }
 
-/* CSS Custom Properties - Modern Design System */
+/* Force dark background always - Override browser theme detection */
+html,
+body {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+/* Override PicoCSS theme detection for all scenarios */
+:root:not([data-theme]),
+:root[data-theme="auto"],
+[data-theme="light"] {
+  --background-color: #121212 !important;
+  --color: #ffffff !important;
+  --muted-color: #b3b3b3 !important;
+  --h1-color: #ffffff !important;
+  --h2-color: #ffffff !important;
+  --h3-color: #ffffff !important;
+  --h4-color: #ffffff !important;
+  --h5-color: #ffffff !important;
+  --h6-color: #ffffff !important;
+  
+  /* Override PicoCSS light theme card backgrounds */
+  --card-background-color: #1C1C1C !important;
+  --card-sectionning-background-color: #2F2F2F !important;
+  
+  /* Override form elements */
+  --form-element-background-color: #1C1C1C !important;
+  --form-element-color: #ffffff !important;
+  
+  /* Override borders */
+  --muted-border-color: rgba(255, 255, 255, 0.1) !important;
+  --table-border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* CSS Custom Properties - Override PicoCSS with Dark Theme */
 :root {
-  /* Color Palette - Dark Theme */
+  /* Override PicoCSS background and text colors */
+  --background-color: #121212 !important;
+  --color: #ffffff !important;
+  --muted-color: #b3b3b3 !important;
+  
+  /* Override PicoCSS heading colors */
+  --h1-color: #ffffff !important;
+  --h2-color: #ffffff !important;
+  --h3-color: #ffffff !important;
+  --h4-color: #ffffff !important;
+  --h5-color: #ffffff !important;
+  --h6-color: #ffffff !important;
+  
+  /* Our custom color palette - Dark Theme */
   --color-background-primary: #121212;
   --color-background-secondary: #1C1C1C;
   --color-background-tertiary: #2F2F2F;
@@ -122,6 +169,7 @@ body {
   line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
+  background-color: #121212 !important;
 }
 
 /* Accessibility */

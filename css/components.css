@@ -1,3 +1,24 @@
+/* Force dark background always - Override browser theme detection */
+html,
+body {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+/* Ensure PicoCSS doesn't override with light theme */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+/* Override PicoCSS automatic theme detection */
+html[data-theme="auto"],
+html:not([data-theme]) {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
 /* Component Styles for Cinco Doce Website */
 
 /* Page Loader Styles */
@@ -540,8 +561,43 @@ section {
   .project-card:hover {
     transform: none;
   }
-  
+
   .contact-card:hover {
     transform: none;
   }
+}
+
+/* CRITICAL: Override PicoCSS theme system - Force black background always */
+:root,
+:root:not([data-theme]),
+:root[data-theme="auto"],
+[data-theme="light"],
+[data-theme="dark"],
+html:not([data-theme]),
+html[data-theme="auto"],
+html[data-theme="light"],
+html[data-theme="dark"] {
+  --background-color: #121212 !important;
+  background-color: #121212 !important;
+}
+
+/* Extra override for body and html elements */
+html,
+body {
+  background: #121212 !important;
+  background-color: #121212 !important;
+}
+
+/* Override any potential container backgrounds */
+main,
+.container,
+.container-fluid {
+  background-color: transparent !important;
+}
+
+/* Ensure consistent dark theme variables */
+:root {
+  --background-color: #121212 !important;
+  --color: #ffffff !important;
+  --muted-color: #b3b3b3 !important;
 }
