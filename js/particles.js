@@ -66,15 +66,15 @@ class ParticleSystem {
             containerSelector: 'body',
             canvasId: 'particle-canvas',
             colors: ['#ffffff', '#f8f8f8', '#f0f0f0', '#e8e8e8'], // Brighter whites for better light emission
-            size: { min: 0.8, max: 2.2 },
-            speed: { min: 0.02, max: 0.15 },
+            size: { min: 1.2, max: 2.6 },
+            speed: { min: 1.5, max: 3.5 },
             opacity: { min: 0.4, max: 0.8 },
-            driftStrength: 0.8,
+            driftStrength: 4.5,
             scrollInfluence: 2.5, // Enhanced scroll acceleration
-            mouseInfluence: 1.2,
+            mouseInfluence: 800,
             enableGlow: true,
             enableDepth: true,
-            size: { min: 1.5, max: 2.5 },
+            size: { min: 3, max: 4 },
             opacity: { min: 0.2, max: 0.6 },        
             glowIntensity: 2,
             ...options
@@ -105,8 +105,7 @@ class ParticleSystem {
     }
     
     getOptimalParticleCount() {
-        // Fixed particle count as requested - 50 floating particles
-        return 50;
+        return 100;
     }
     
     init() {
@@ -157,7 +156,7 @@ class ParticleSystem {
         this.renderer = new THREE.WebGLRenderer({
             canvas,
             alpha: true,
-            antialias: false, // Disabled for performance
+            antialias: true, // Disabled for performance
             powerPreference: 'high-performance'
         });
         
@@ -379,7 +378,7 @@ class ParticleSystem {
             return;
         }
         
-        this.time += 0.008; // Slower time increment for gentler movement
+        this.time += 0.02; // Slower time increment for gentler movement
         
         // Smooth scroll interpolation with controlled easing
         const scrollDiff = Math.abs(this.targetScrollY - this.scrollY);
@@ -398,13 +397,13 @@ class ParticleSystem {
                 continue;
             }
             
-            // Gentle organic drift with controlled amplitude
-            const timeOffset = this.time * particle.depthSpeed * 0.5 + particle.phase;
+            // Enhanced organic drift with increased amplitude for more visible movement
+            const timeOffset = this.time * particle.depthSpeed * 0.8 + particle.phase;
             
-            // Simple sine/cosine drift - much more controlled
-            const driftX = Math.sin(timeOffset) * this.config.driftStrength * 0.2;
-            const driftY = Math.cos(timeOffset * 0.7) * this.config.driftStrength * 0.15;
-            const driftZ = Math.sin(timeOffset * 0.5) * this.config.driftStrength * 0.08;
+            // Significantly increased drift multipliers for 200% more dynamic idle movement
+            const driftX = Math.sin(timeOffset) * this.config.driftStrength * 1.1;
+            const driftY = Math.cos(timeOffset * 0.7) * this.config.driftStrength * 1.0;
+            const driftZ = Math.sin(timeOffset * 0.5) * this.config.driftStrength * 0.55;
             
             // Very subtle scroll influence
             const scrollDelta = this.scrollY - this.targetScrollY;
@@ -416,18 +415,17 @@ class ParticleSystem {
             const mouseDistance = Math.sqrt(mouseDistX * mouseDistX + mouseDistY * mouseDistY);
             const mouseInfluence = Math.max(0, (100 - mouseDistance) / 100) * 0.1;
             
-            // Very conservative velocity updates
-            velocities[i3] += driftX * 0.01 + mouseDistX * mouseInfluence * 0.0005;
-            velocities[i3 + 1] += driftY * 0.01 + scrollAcceleration + mouseDistY * mouseInfluence * 0.0005;
-            velocities[i3 + 2] += driftZ * 0.005;
+             velocities[i3] += driftX * 0.04 + mouseDistX * mouseInfluence * 0.0005;
+            velocities[i3 + 1] += driftY * 0.02 + scrollAcceleration + mouseDistY * mouseInfluence * 0.0005;
+            velocities[i3 + 2] += driftZ * 0.045;
             
-            // Strong damping to prevent runaway velocities
-            velocities[i3] *= 0.98;
-            velocities[i3 + 1] *= 0.98;
-            velocities[i3 + 2] *= 0.99;
+            // Further reduced damping for much more persistent movement
+            velocities[i3] *= 0.95;
+            velocities[i3 + 1] *= 0.96;
+            velocities[i3 + 2] *= 0.92;
             
-            // Velocity clamping to prevent particles from moving too fast
-            const maxVel = 2.0;
+            // Significantly increased velocity limits for much faster particles
+            const maxVel = 8.0;
             velocities[i3] = Math.max(-maxVel, Math.min(maxVel, velocities[i3]));
             velocities[i3 + 1] = Math.max(-maxVel, Math.min(maxVel, velocities[i3 + 1]));
             velocities[i3 + 2] = Math.max(-maxVel, Math.min(maxVel, velocities[i3 + 2]));

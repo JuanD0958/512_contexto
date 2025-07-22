@@ -300,6 +300,15 @@ section {
   transform: none;
   transition: none;
   animation: none;
+  cursor: grab;
+}
+
+.projects-grid.is-dragging {
+  cursor: grabbing;
+}
+
+.projects-grid.is-dragging .project-card {
+  pointer-events: none;
 }
 
 .project-card {

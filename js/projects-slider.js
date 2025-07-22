@@ -12,6 +12,9 @@ class ProjectsSlider {
             speed: options.speed || 30, // seconds for one complete loop
             pauseOnHover: options.pauseOnHover !== false,
             pauseOnFocus: options.pauseOnFocus !== false,
+            dragEnabled: options.dragEnabled !== false,
+            momentumDuration: options.momentumDuration || 1.2,
+            dragThreshold: options.dragThreshold || 5, // minimum pixels to consider it a drag vs click
             ...options
         };
         
@@ -20,6 +23,18 @@ class ProjectsSlider {
         this.isInitialized = false;
         this.isPaused = false;
         this.resizeTimeout = null;
+        
+        // Drag state
+        this.isDragging = false;
+        this.isPointerDown = false;
+        this.startX = 0;
+        this.startY = 0;
+        this.currentX = 0;
+        this.dragOffset = 0;
+        this.lastDragTime = 0;
+        this.dragVelocity = 0;
+        this.preventClick = false;
+        this.resumeTimeout = null;
         
         // Elements
         this.container = null;
@@ -73,6 +88,11 @@ class ProjectsSlider {
         
         // Ensure accessibility
         this.setupAccessibility();
+        
+        // Setup drag functionality
+        if (this.config.dragEnabled) {
+            this.setupDragHandlers();
+        }
     }
     
     cloneCards() {
@@ -101,6 +121,38 @@ class ProjectsSlider {
                     img.setAttribute('alt', title.textContent);
                 }
             }
+        });
+    }
+    
+    setupDragHandlers() {
+        // Prevent default dragging behavior on images
+        this.allCards.forEach(card => {
+            const img = card.querySelector('img');
+            if (img) {
+                img.addEventListener('dragstart', e => e.preventDefault());
+            }
+        });
+        
+        // Mouse events
+        this.container.addEventListener('mousedown', this.handlePointerStart.bind(this));
+        document.addEventListener('mousemove', this.handlePointerMove.bind(this));
+        document.addEventListener('mouseup', this.handlePointerEnd.bind(this));
+        
+        // Touch events
+        this.container.addEventListener('touchstart', this.handlePointerStart.bind(this), { passive: false });
+        document.addEventListener('touchmove', this.handlePointerMove.bind(this), { passive: false });
+        document.addEventListener('touchend', this.handlePointerEnd.bind(this));
+        
+        // Prevent context menu on long press
+        this.container.addEventListener('contextmenu', e => {
+            if (this.isDragging) {
+                e.preventDefault();
+            }
+        });
+        
+        // Prevent click events during/after dragging
+        this.allCards.forEach(card => {
+            card.addEventListener('click', this.handleCardClick.bind(this), true);
         });
     }
     
@@ -201,15 +253,181 @@ class ProjectsSlider {
         }
     }
     
+    // Drag handling methods
+    handlePointerStart(e) {
+        // Only handle left mouse button or touch
+        if (e.type === 'mousedown' && e.button !== 0) return;
+        
+        const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+        
+        this.isPointerDown = true;
+        this.startX = clientX;
+        this.startY = clientY;
+        this.currentX = clientX;
+        this.dragOffset = 0;
+        this.lastDragTime = Date.now();
+        this.dragVelocity = 0;
+        this.preventClick = false;
+        
+        // Clear any pending resume timeout
+        if (this.resumeTimeout) {
+            clearTimeout(this.resumeTimeout);
+            this.resumeTimeout = null;
+        }
+        
+        // Add dragging class for CSS styling
+        this.container.classList.add('is-dragging');
+        
+        // Prevent text selection
+        document.body.style.userSelect = 'none';
+        
+        e.preventDefault();
+    }
+    
+    handlePointerMove(e) {
+        if (!this.isPointerDown) return;
+        
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+        
+        const deltaX = clientX - this.startX;
+        const deltaY = clientY - this.startY;
+        
+        // Check if this is a drag gesture (moved beyond threshold)
+        if (!this.isDragging && (Math.abs(deltaX) > this.config.dragThreshold || Math.abs(deltaY) > this.config.dragThreshold)) {
+            // For horizontal dragging, require more horizontal than vertical movement
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                this.isDragging = true;
+                this.preventClick = true;
+                
+                // Pause the timeline
+                if (this.timeline) {
+                    this.timeline.pause();
+                }
+                
+                console.log('🖱️ Drag started');
+            } else {
+                // Vertical movement, cancel drag
+                this.handlePointerEnd(e);
+                return;
+            }
+        }
+        
+        if (this.isDragging) {
+            const previousX = this.currentX;
+            this.currentX = clientX;
+            this.dragOffset = deltaX;
+            
+            // Calculate velocity for momentum
+            const now = Date.now();
+            const timeDelta = now - this.lastDragTime;
+            if (timeDelta > 0) {
+                this.dragVelocity = (clientX - previousX) / timeDelta;
+            }
+            this.lastDragTime = now;
+            
+            // Apply the drag transform
+            this.applyDragTransform();
+            
+            e.preventDefault();
+        }
+    }
+    
+    handlePointerEnd(e) {
+        if (!this.isPointerDown) return;
+        
+        this.isPointerDown = false;
+        
+        // Remove dragging class
+        this.container.classList.remove('is-dragging');
+        
+        // Restore text selection
+        document.body.style.userSelect = '';
+        
+        if (this.isDragging) {
+            this.isDragging = false;
+            
+            // Apply momentum if there's significant velocity
+            this.applyMomentum();
+            
+            // Resume auto-scroll after a delay
+            this.resumeTimeout = setTimeout(() => {
+                this.resumeAutoScroll();
+            }, 500);
+            
+            console.log('🖱️ Drag ended');
+        }
+        
+        // Reset prevent click after a short delay
+        setTimeout(() => {
+            this.preventClick = false;
+        }, 10);
+    }
+    
+    handleCardClick(e) {
+        if (this.preventClick) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+        }
+    }
+    
+    applyDragTransform() {
+        if (!this.container || !this.timeline) return;
+        
+        // Get current timeline progress and calculate base transform
+        const progress = this.timeline.progress();
+        const { totalWidth } = this.calculateDimensions();
+        const baseOffset = -totalWidth / 2 * progress;
+        
+        // Apply both auto-scroll offset and manual drag offset
+        const totalOffset = baseOffset + this.dragOffset;
+        
+        gsap.set(this.container, { x: totalOffset });
+    }
+    
+    applyMomentum() {
+        if (!this.container || Math.abs(this.dragVelocity) < 0.1) return;
+        
+        // Apply momentum using GSAP
+        const momentumDistance = this.dragVelocity * 200; // Adjust multiplier as needed
+        const currentTransform = gsap.getProperty(this.container, 'x');
+        
+        gsap.to(this.container, {
+            x: currentTransform + momentumDistance,
+            duration: this.config.momentumDuration,
+            ease: 'power2.out'
+        });
+    }
+    
+    resumeAutoScroll() {
+        if (!this.timeline) return;
+        
+        // Get current position and calculate where we should be in the timeline
+        const currentX = gsap.getProperty(this.container, 'x');
+        const { totalWidth } = this.calculateDimensions();
+        
+        // Calculate progress based on current position
+        const progress = Math.abs(currentX) / (totalWidth / 2);
+        const normalizedProgress = progress % 1; // Keep within 0-1 range
+        
+        // Set timeline to correct position and resume
+        this.timeline.progress(normalizedProgress);
+        this.timeline.resume();
+        
+        console.log('▶️ Auto-scroll resumed');
+    }
+    
     pause() {
-        if (this.timeline && !this.isPaused) {
+        if (this.timeline && !this.isPaused && !this.isDragging) {
             this.timeline.pause();
             this.isPaused = true;
         }
     }
     
     resume() {
-        if (this.timeline && this.isPaused) {
+        if (this.timeline && this.isPaused && !this.isDragging) {
             this.timeline.resume();
             this.isPaused = false;
         }
@@ -226,15 +444,35 @@ class ProjectsSlider {
             this.timeline.kill();
         }
         
+        // Clear timeouts
+        if (this.resumeTimeout) {
+            clearTimeout(this.resumeTimeout);
+        }
+        
+        // Remove drag event listeners
+        if (this.config.dragEnabled) {
+            this.container.removeEventListener('mousedown', this.handlePointerStart);
+            document.removeEventListener('mousemove', this.handlePointerMove);
+            document.removeEventListener('mouseup', this.handlePointerEnd);
+            this.container.removeEventListener('touchstart', this.handlePointerStart);
+            document.removeEventListener('touchmove', this.handlePointerMove);
+            document.removeEventListener('touchend', this.handlePointerEnd);
+            this.container.removeEventListener('contextmenu', this.handlePointerEnd);
+        }
+        
         // Remove cloned cards
         const clonedCards = this.container.querySelectorAll(this.config.cardSelector + '[aria-hidden="true"]');
         clonedCards.forEach(card => card.remove());
         
         // Reset container
         this.container.style.transform = '';
+        this.container.classList.remove('is-dragging');
         
         // Clear event listeners
         window.removeEventListener('resize', this.handleResize);
+        
+        // Restore text selection
+        document.body.style.userSelect = '';
         
         this.isInitialized = false;
         console.log('🗑️ Projects Slider destroyed');
