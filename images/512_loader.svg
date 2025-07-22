@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Loader</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    svg {
+      width: 300px;
+      height: 300px;
+      fill: #fff;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)) drop-shadow(0 0 40px rgba(235,127,80,0.7));
+    }
+
+    path:nth-of-type(1) {
+      animation: float1 3s infinite ease-in-out;
+    }
+
+    path:nth-of-type(2) {
+      animation: float2 3s infinite ease-in-out;
+    }
+
+    path:nth-of-type(3) {
+      animation: float3 3s infinite ease-in-out;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translateY(15px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translateY(-10x); }
+      50% { transform: translateY(100px); }
+    }
+
+    @keyframes float3 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-108px); }
+    }
+
+    .loader-exit {
+      animation: fadeOut 5s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <svg xmlns="http://www.w3.org/2000/svg" id="eR7ofznSCJm1" xmlns:xlink="http://www.w3.org/1999/xlink" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" project-id="70e60eaa7f32484f8a95827fe28bab7a" export-id="f6b006d273414f7fb25c288aca3eb54e" cached="false" width="4500" height="4500" viewBox="0 0 4500 4500" data-app="Xyris">
+      <path d="M 2148.83 1725.23 L 2424.85 1725.23 L 2424.85 2307.56 L 2148.83 2307.56 L 2148.9264200978305 1895.2434612717993 L 2051.61 1895.03 Z" fill="rgb(255,255,255)" stroke="#ffffff" stroke-width="2"></path>
+      <path d="M 2936.14 1724.99 C 3014.93 1724.99 3078.81 1790.4 3078.81 1871.09 C 3078.81 1951.78 3012.51 2017.21 2933.72 2017.21 C 2929.61 2017.21 2978.96 2017.35 3023.38 2016.55 C 3048.57 2016.51 3069.06 2016.59 3076.83 2016.95 C 3076.826238768962 2028.5918204944521 3075.91 2045.97 3076.19 2074.95 C 3076.49 2148.48 3076.41 2269.41 3076.63 2308.47 C 3045.72 2308.15 2996.38 2308.94 2911.5 2309.26 C 2760.73 2309.83 2557.87 2307.78 2492.97 2307.51 C 2492.82 2287.03 2492.97 2246.27 2492.93 2209.11 C 2492.97 2185.58 2492.32 2161.64 2494.13 2152.4 C 2494.46 2150.71 2494.66 2147.31 2495.14 2142.81 C 2495.78 2136.83 2496.89 2128.9 2499.44 2120.46 C 2505.28 2101.08 2517.16 2078.24 2533.28 2062.17 C 2538.19 2057.28 2543.03 2052.29 2548.6 2047.78 C 2557.35 2040.69 2567.48 2035.44 2575.82 2031.12 C 2584.39 2026.69 2591.49 2023.88 2598.52 2021.86 C 2614.23 2017.34 2625.53 2017.02 2624.54 2017.03 C 2493.88 2017.69 2513.87 2016.64 2493.29 2016.9 C 2493.31 1991.91 2493.3 1754.73 2493.11 1725.14 C 2555.3 1724.67 2891.6 1724.99 2936.14 1724.99 Z" fill="rgb(255,255,255)" stroke="#ffffff" stroke-width="2"></path>
+      <path d="M 1566.58 1725.02 C 1622.81 1725.02 1567.29 1725.35 2005.83 1724.83 C 2007.47 1865.33 2005.96 1841.11 2005.96 1865.01 C 2005.96 1891.45 2005.7 1891.42 2006.12 2017.04 C 1983.16 2017 2006.31 2016.9 1873.86 2017.74 C 1928.8 2016.21 2005.51 2073.35 2006.59 2159.63 C 2007.67 2245.91 1939.73 2305.83 1870.13 2307.76 C 1549.68 2309.83 1688.3634777769814 2308.899365465356 1422.98 2309.14 C 1422.97 2158.78 1415.19 2134.49 1436.98 2086.82 C 1471.4 2011.52 1585.19 2016.18 1566.58 2016.18 C 1486.57 2016.18 1423.41 1951.93 1421.72 1870.6 C 1420.08 1791.39 1489.55 1724.07 1566.58 1725.02 Z" fill="rgb(255,255,255)" stroke="#ffffff" stroke-width="2"></path>
+    </svg>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('loader-exit');
+      }, 4000);
+    });
+  </script>
+
+</body>
+</html>

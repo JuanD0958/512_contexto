@@ -1,3 +1,66 @@
+// Page Loader Controller
+class PageLoader {
+    constructor() {
+        this.loaderElement = document.getElementById('page-loader');
+        this.mainContent = document.getElementById('main-website');
+        this.minLoadTime = 2000; // Minimum 2 seconds to show the loader
+        this.maxLoadTime = 5000; // Maximum 5 seconds before forcing show
+        this.loadStartTime = Date.now();
+        
+        this.init();
+    }
+    
+    init() {
+        // Ensure loader is visible initially
+        if (this.loaderElement) {
+            this.loaderElement.style.display = 'flex';
+        }
+        
+        // Wait for page to load
+        if (document.readyState === 'loading') {
+            window.addEventListener('load', () => this.handlePageLoad());
+        } else {
+            // Page already loaded
+            this.handlePageLoad();
+        }
+        
+        // Fallback timeout to ensure loader doesn't stay forever
+        setTimeout(() => {
+            this.hideLoader();
+        }, this.maxLoadTime);
+    }
+    
+    handlePageLoad() {
+        const loadTime = Date.now() - this.loadStartTime;
+        const remainingTime = Math.max(0, this.minLoadTime - loadTime);
+        
+        // Wait for minimum load time if needed
+        setTimeout(() => {
+            this.hideLoader();
+        }, remainingTime);
+    }
+    
+    hideLoader() {
+        if (!this.loaderElement || !this.mainContent) return;
+        
+        // Add fade-out class to loader
+        this.loaderElement.classList.add('fade-out');
+        
+        // Show main content
+        this.mainContent.classList.add('fade-in');
+        
+        // Remove loader from DOM after transition
+        setTimeout(() => {
+            if (this.loaderElement && this.loaderElement.parentNode) {
+                this.loaderElement.parentNode.removeChild(this.loaderElement);
+            }
+        }, 1000); // Match the CSS transition duration
+    }
+}
+
+// Initialize loader when script loads
+const pageLoader = new PageLoader();
+
 // Cinco Doce Website JavaScript
 // Minimal and purposeful interactivity
 
