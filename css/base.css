@@ -114,6 +114,7 @@ html {
   text-rendering: optimizeLegibility;
   font-feature-settings: 'kern' 1;
   scroll-behavior: auto; /* Let Lenis handle smooth scrolling */
+  background-color: transparent; /* Ensure transparent background */
 }
 
 body {
@@ -122,6 +123,113 @@ body {
   line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
+  background-color: transparent; /* Changed from inherit to transparent */
+}
+
+/* Full Page Background Implementation */
+.page-background {
+  /* Positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  /* Background Image */
+  background-image: url('../images/gray_building_background.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  
+  /* Layer Management */
+  z-index: -1;
+  
+  /* Semi-transparent Overlay */
+  opacity: 0.6;
+  
+  /* Performance Optimizations for Mobile */
+  pointer-events: none; /* Prevents interference with scroll/touch */
+  user-select: none;    /* Prevents text selection */
+  
+  /* Modern CSS for better rendering */
+  object-fit: cover;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Ensure content sits above background */
+.main-content-wrapper {
+  position: relative;
+  z-index: 0;
+}
+
+/* Fallback for browsers without WebP support */
+.page-background {
+  background-image: url('../images/gray_building_background.jpg'); /* Fallback */
+  background-image: url('../images/gray_building_background.webp'); /* Modern browsers */
+}
+
+/* Loading optimization */
+.page-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent; /* Fallback color while image loads */
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show fallback color only while image is loading */
+.page-background:not([data-loaded])::before {
+  opacity: 1;
+}
+
+/* Mobile-Specific Optimizations */
+@media screen and (max-width: 768px) {
+  .page-background {
+    /* iOS Safari & Android Chrome optimizations */
+    height: 100vh;
+    height: -webkit-fill-available; /* Better viewport handling on mobile */
+    
+    /* Prevent overscroll issues */
+    background-attachment: scroll; /* Explicitly avoid fixed attachment */
+    
+    /* Better memory management on mobile */
+    contain: layout style paint;
+  }
+}
+
+/* High DPI Displays (Retina, etc.) */
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+       screen and (min-resolution: 192dpi) {
+  .page-background {
+    /* Optimize for high-resolution displays */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: auto;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .page-background {
+    /* Prevent touch interference */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+}
+
+/* iOS Specific Optimizations */
+@supports (-webkit-touch-callout: none) {
+  .page-background {
+    /* iOS Safari specific fixes */
+    height: 100vh;
+    height: -webkit-fill-available;
+    /* Prevent rubber band scroll interference */
+    -webkit-overflow-scrolling: auto;
+  }
 }
 
 /* Accessibility */
@@ -158,17 +266,18 @@ a.sr-only:focus {
   clip: auto;
 }
 
-/* Smooth scroll fallback for reduced motion */
+/* Reduced Motion Preference */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  .page-background {
+    /* Respect user's motion preferences */
+    background-attachment: scroll;
   }
-  
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+}
+
+/* Override inherited backgrounds to ensure transparency */
+html, body, 
+.main-content-wrapper,
+.lenis-smooth {
+  background-color: transparent !important;
+  background-image: none !important;
 }
