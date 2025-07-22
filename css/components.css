@@ -133,18 +133,79 @@
 /* Navigation Styles */
 .navbar {
   position: fixed;
-  display: flow;
+  display: flex;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   box-shadow: none;
-  transition: all var(--transition-base);
+  transition: var(--navbar-transition);
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .navbar.scrolled {
+    background: rgba(18, 18, 18, 0.9);
+  }
 }
 
 .navbar.scrolled {
-  background: rgba(18, 18, 18, 0.98);
-  box-shadow: var(--shadow-dark);
+  background: var(--navbar-bg-transparent);
+  backdrop-filter: blur(var(--navbar-blur-amount));
+  -webkit-backdrop-filter: blur(var(--navbar-blur-amount));
+  box-shadow: var(--navbar-shadow-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced navbar states for better visual feedback */
+.navbar:not(.scrolled) {
+  /* When at top - fully transparent background */
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* Smooth scroll position indicator */
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+  transition: width 0.3s ease;
+  opacity: 0;
+}
+
+.navbar.scrolled::after {
+  opacity: 1;
+  width: calc(100vw * var(--scroll-progress, 0));
+}
+
+/* Mobile-specific navbar optimizations */
+@media screen and (max-width: 768px) {
+  .navbar:not(.scrolled) {
+    /* Keep transparent on mobile too */
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  
+  .navbar.scrolled {
+    /* Mobile-optimized blur amount for better performance */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+  
+  /* Hide scroll progress on mobile for cleaner look */
+  .navbar::after {
+    display: none;
+  }
 }
 
 .nav-container {
@@ -161,6 +222,14 @@
   height: 30px;
   width: auto;
   object-fit: contain;
+  transition: filter 0.3s ease;
+  /* Add subtle drop shadow for better visibility over background */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+/* Add subtle glow to logo when navbar is transparent for better visibility */
+.navbar.scrolled .nav-logo .logo-img {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
 
 .nav-menu {
@@ -175,8 +244,15 @@
   text-decoration: none;
   font-weight: 500;
   font-size: var(--font-size-base);
-  transition: color var(--transition-fast);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
   position: relative;
+  /* Add subtle text shadow for better visibility over background */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced text contrast when navbar is transparent */
+.navbar.scrolled .nav-link {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .nav-link:hover,
@@ -216,6 +292,11 @@
   height: 3px;
   background-color: var(--color-text-primary);
   transition: all var(--transition-fast);
+}
+
+/* Enhanced visibility for mobile toggle when navbar is transparent */
+.navbar.scrolled .nav-toggle .bar {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .nav-toggle.active .bar:nth-child(1) {

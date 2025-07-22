@@ -104,8 +104,26 @@ class Navigation {
     handleScroll() {
         if (!this.navbar) return;
         
-        const scrolled = window.scrollY > 50;
-        this.navbar.classList.toggle('scrolled', scrolled);
+        const scrollY = window.scrollY;
+        const scrollThreshold = 50;
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        
+        // Add/remove scrolled class for transparency and blur effect
+        const isScrolled = scrollY > scrollThreshold;
+        this.navbar.classList.toggle('scrolled', isScrolled);
+        
+        // Calculate scroll progress for the indicator
+        const scrollProgress = Math.min(scrollY / documentHeight, 1);
+        this.navbar.style.setProperty('--scroll-progress', scrollProgress);
+        
+        // Optional: Add smooth opacity transition based on scroll amount
+        if (scrollY <= scrollThreshold) {
+            // When at top, ensure navbar is fully visible
+            this.navbar.style.transform = 'translateY(0)';
+        } else {
+            // When scrolled, apply the transparent/blur effect
+            this.navbar.style.transform = 'translateY(0)';
+        }
     }
     
     setupScrollSpy() {

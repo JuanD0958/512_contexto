@@ -28,6 +28,13 @@
   --particle-glow-color: rgba(255, 255, 255, 0.08);
   --particle-ambient-glow: rgba(255, 255, 255, 0.03);
   
+  /* Navbar Transparency & Blur Effects */
+  --navbar-bg-solid: rgba(18, 18, 18, 0.95);
+  --navbar-bg-transparent: rgba(18, 18, 18, 0.1);
+  --navbar-blur-amount: 20px;
+  --navbar-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --navbar-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
   /* Legacy variables for compatibility */
   --bg-primary: var(--color-background-primary);
   --bg-secondary: var(--color-background-secondary);
