@@ -256,7 +256,7 @@
 
 /* Section Styles */
 section {
-  padding: var(--space-4xl) 0;
+  padding: 5rem 0; /* Standardized to match projects and contact sections */
   position: relative;
 }
 

@@ -1037,6 +1037,11 @@ a {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  /* Consistent section spacing for tablets */
+  section {
+    padding: 4rem 0; /* Reduced from 5rem to 4rem for tablet */
+  }
+
   /* Mobile Navbar Layout - Center logo, nav-toggle on top left */
   .nav-container {
     justify-content: center;
@@ -1195,6 +1200,11 @@ a {
 @media (max-width: 480px) {
   .container {
     padding: 0 0.5rem;
+  }
+
+  /* Consistent section spacing on mobile */
+  section {
+    padding: 3rem 0; /* Reduced from 5rem to 3rem for mobile */
   }
 
   .hero {
