@@ -264,6 +264,7 @@ a {
 .navbar {
   background: transparent;
   position: fixed;
+  display: contents;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -286,7 +287,7 @@ a {
 }
 
 .nav-logo .logo-img {
-  height: 40px;
+  height: 30px;
   width: auto;
   max-width: 200px;
   object-fit: contain;
@@ -298,7 +299,6 @@ a {
 }
 
 .nav-menu {
-  display: flex;
   gap: 2rem;
 }
 
@@ -1048,6 +1048,10 @@ a {
     z-index: 1002;
   }
 
+  .nav-logo .logo-img {
+    height: 20px;
+  }
+
   .nav-actions {
     position: fixed;
     left: 1rem;
@@ -1106,9 +1110,9 @@ a {
   }
 
   .nav-menu {
-    position: fixed;
+    position: relative;
     left: -100%;
-    top: 80px;
+    top: 6.5rem;
     flex-direction: column;
     background-color: var(--bg-secondary);
     border-right: 1px solid var(--border-color);
