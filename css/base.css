@@ -1,0 +1,171 @@
+/* Custom Styles for Cinco Doce Website */
+
+/* Custom Font Loading with fallbacks */
+@font-face {
+  font-family: 'CincoDoceFont';
+  src: url('../fonts/cincodoce-font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CSS Custom Properties - Modern Design System */
+:root {
+  /* Color Palette - Dark Theme */
+  --color-background-primary: #121212;
+  --color-background-secondary: #1C1C1C;
+  --color-background-tertiary: #2F2F2F;
+  
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #B3B3B3;
+  --color-text-muted: #808080;
+  
+  --color-accent: #e85015;
+  --color-accent-hover: #d4460f;
+  --color-accent-light: rgba(232, 80, 21, 0.1);
+  
+  /* Legacy variables for compatibility */
+  --bg-primary: var(--color-background-primary);
+  --bg-secondary: var(--color-background-secondary);
+  --bg-tertiary: var(--color-background-tertiary);
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --accent-color: var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --primary-color: var(--color-text-primary);
+  --secondary-color: var(--color-background-secondary);
+  --text-color: var(--color-text-primary);
+  --text-light: var(--color-text-secondary);
+  
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  
+  /* Typography Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  
+  /* Layout */
+  --max-width-sm: 640px;
+  --max-width-md: 768px;
+  --max-width-lg: 1024px;
+  --max-width-xl: 1280px;
+  --max-width-2xl: 1536px;
+  --container-padding: clamp(1rem, 4vw, 2rem);
+  
+  /* Effects */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-dark-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+  
+  /* Legacy variables */
+  --border-radius: var(--border-radius-md);
+  --transition: var(--transition-base);
+  --shadow: var(--shadow-dark);
+  --shadow-hover: var(--shadow-dark-hover);
+}
+
+/* Modern CSS Reset and Global Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+  scroll-behavior: auto; /* Let Lenis handle smooth scrolling */
+}
+
+body {
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-family: 'CincoDoceFont', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Skip to main content link */
+a.sr-only:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: auto;
+  height: auto;
+  padding: var(--space-md);
+  background: var(--color-accent);
+  color: white;
+  text-decoration: none;
+  clip: auto;
+}
+
+/* Smooth scroll fallback for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
