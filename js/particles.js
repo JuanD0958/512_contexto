@@ -70,7 +70,7 @@ class ParticleSystem {
             speed: { min: 1.5, max: 3.5 },
             opacity: { min: 0.4, max: 0.8 },
             driftStrength: 4.5,
-            scrollInfluence: 2.5, // Enhanced scroll acceleration
+            scrollInfluence: 9.5, // Enhanced scroll acceleration
             mouseInfluence: 800,
             enableGlow: true,
             enableDepth: true,
@@ -383,7 +383,7 @@ class ParticleSystem {
         // Smooth scroll interpolation with controlled easing
         const scrollDiff = Math.abs(this.targetScrollY - this.scrollY);
         const scrollEase = Math.min(scrollDiff / 100, 1) * 0.08;
-        this.scrollY += (this.targetScrollY - this.scrollY) * (0.05 + scrollEase);
+        this.scrollY += (this.targetScrollY - this.scrollY) * (0.5 + scrollEase);
         
         const positions = this.particleSystem.geometry.attributes.position.array;
         const velocities = this.particleSystem.geometry.attributes.velocity.array;
@@ -398,16 +398,16 @@ class ParticleSystem {
             }
             
             // Enhanced organic drift with increased amplitude for more visible movement
-            const timeOffset = this.time * particle.depthSpeed * 0.8 + particle.phase;
+            const timeOffset = this.time * particle.depthSpeed * 0.2 + particle.phase;
             
             // Significantly increased drift multipliers for 200% more dynamic idle movement
-            const driftX = Math.sin(timeOffset) * this.config.driftStrength * 1.1;
-            const driftY = Math.cos(timeOffset * 0.7) * this.config.driftStrength * 1.0;
-            const driftZ = Math.sin(timeOffset * 0.5) * this.config.driftStrength * 0.55;
+            const driftX = Math.sin(timeOffset) * this.config.driftStrength * 2.7;
+            const driftY = Math.cos(timeOffset * 0.2) * this.config.driftStrength * 3.0;
+            const driftZ = Math.sin(timeOffset * 0.5) * this.config.driftStrength * 1.55;
             
             // Very subtle scroll influence
             const scrollDelta = this.scrollY - this.targetScrollY;
-            const scrollAcceleration = scrollDelta * 0.001 * particle.depthSpeed;
+            const scrollAcceleration = scrollDelta * 1.1 * particle.depthSpeed;
             
             // Gentle mouse interaction
             const mouseDistX = this.mouseX * 50 - positions[i3];
@@ -415,17 +415,17 @@ class ParticleSystem {
             const mouseDistance = Math.sqrt(mouseDistX * mouseDistX + mouseDistY * mouseDistY);
             const mouseInfluence = Math.max(0, (100 - mouseDistance) / 100) * 0.1;
             
-             velocities[i3] += driftX * 0.04 + mouseDistX * mouseInfluence * 0.0005;
-            velocities[i3 + 1] += driftY * 0.02 + scrollAcceleration + mouseDistY * mouseInfluence * 0.0005;
+            velocities[i3] += driftX * 0.4 + mouseDistX * mouseInfluence * 0.0005;
+            velocities[i3 + 1] += driftY * 0.13 + scrollAcceleration + mouseDistY * mouseInfluence * 0.0005;
             velocities[i3 + 2] += driftZ * 0.045;
             
             // Further reduced damping for much more persistent movement
-            velocities[i3] *= 0.95;
-            velocities[i3 + 1] *= 0.96;
-            velocities[i3 + 2] *= 0.92;
+            velocities[i3] *= 0.15;
+            velocities[i3 + 1] *= 0.16;
+            velocities[i3 + 2] *= 0.12;
             
             // Significantly increased velocity limits for much faster particles
-            const maxVel = 8.0;
+            const maxVel = 6.0;
             velocities[i3] = Math.max(-maxVel, Math.min(maxVel, velocities[i3]));
             velocities[i3 + 1] = Math.max(-maxVel, Math.min(maxVel, velocities[i3 + 1]));
             velocities[i3 + 2] = Math.max(-maxVel, Math.min(maxVel, velocities[i3 + 2]));
