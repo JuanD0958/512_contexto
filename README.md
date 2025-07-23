@@ -106,6 +106,54 @@ npm run dev
 
 El sitio estará disponible en `http://localhost:3000`
 
+## 🐳 Ejecución con Docker
+
+Puedes ejecutar este sitio en un contenedor Docker, tanto para producción como para desarrollo local.
+
+### 🔥 Producción (Docker)
+
+```bash
+# Construir la imagen optimizada
+docker build -t cinco-doce-web:latest .
+
+# Ejecutar el contenedor en modo producción
+docker run --rm -p 3000:3000 --env NODE_ENV=production cinco-doce-web:latest
+```
+
+El sitio estará disponible en `http://localhost:3000`
+
+### 🟢 Desarrollo (Docker)
+
+```bash
+# Construir la imagen de desarrollo
+docker build --target=development -t cinco-doce-web:dev .
+
+# Ejecutar el contenedor con volumen para hot reload (opcional)
+docker run --rm -p 3000:3000 -v ${PWD}:/app -v /app/node_modules --env NODE_ENV=development cinco-doce-web:dev
+```
+
+Puedes editar archivos localmente y ver los cambios reflejados (requiere reiniciar el contenedor si no usas herramientas de live reload).
+
+### 🧩 Docker Compose (multi-servicio)
+
+Para orquestar varios servicios (web, base de datos, API, etc.), usa `docker-compose.yml`:
+
+```bash
+docker compose up --build
+```
+
+Esto levantará el servicio web y dejará espacio para agregar otros microservicios en el futuro.
+
+#### Variables de entorno
+Puedes crear un archivo `.env` en la raíz y Docker Compose lo cargará automáticamente. Ejemplo:
+
+```
+NODE_ENV=production
+CUSTOM_ENV_VAR=valor
+```
+
+---
+
 ### Opciones de Desarrollo
 
 #### 🟢 **Método Recomendado (NPM)**

@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cinco-doce-web:latest
+    container_name: cinco-doce-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      # - CUSTOM_ENV_VAR=value
+    volumes:
+      # Uncomment for live code reload in dev:
+      # - ./:/app
+      # - /app/node_modules
+    networks:
+      - cinco-doce-net
+    labels:
+      - "com.cincodoce.service=web"
+
+  # Add future services here (db, api, cache, etc.)
+  # db:
+  #   image: postgres:16
+  #   ...
+
+networks:
+  cinco-doce-net:
+    driver: bridge
