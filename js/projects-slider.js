@@ -1,7 +1,7 @@
 /**
  * Projects Infinite Slider
  * Creates a horizontally scrolling infinite loop slider using GSAP
- * Features: responsive design, hover pause, accessibility support
+ * Features: responsive design, hover pause, accessibility support, dynamic content loading
  */
 class ProjectsSlider {
     constructor(options = {}) {
@@ -15,6 +15,7 @@ class ProjectsSlider {
             dragEnabled: options.dragEnabled !== false,
             momentumDuration: options.momentumDuration || 1.2,
             dragThreshold: options.dragThreshold || 5, // minimum pixels to consider it a drag vs click
+            dataService: options.dataService || window.projectsDataService,
             ...options
         };
         
@@ -23,6 +24,7 @@ class ProjectsSlider {
         this.isInitialized = false;
         this.isPaused = false;
         this.resizeTimeout = null;
+        this.projectsData = [];
         
         // Drag state
         this.isDragging = false;
@@ -44,11 +46,18 @@ class ProjectsSlider {
         this.init();
     }
     
-    init() {
+    async init() {
         try {
             // Check for GSAP availability
             if (typeof gsap === 'undefined') {
                 console.warn('⚠️ GSAP not found, Projects Slider disabled');
+                return;
+            }
+            
+            // Check for data service
+            if (!this.config.dataService) {
+                console.warn('⚠️ Projects data service not found, using static content');
+                this.initWithStaticContent();
                 return;
             }
             
@@ -59,12 +68,8 @@ class ProjectsSlider {
                 return;
             }
             
-            // Get original cards
-            this.originalCards = Array.from(this.container.querySelectorAll(this.config.cardSelector));
-            if (this.originalCards.length === 0) {
-                console.warn('⚠️ No project cards found');
-                return;
-            }
+            // Load projects data and render cards
+            await this.loadAndRenderProjects();
             
             // Setup slider
             this.setupSlider();
@@ -72,10 +77,125 @@ class ProjectsSlider {
             this.bindEvents();
             
             this.isInitialized = true;
-            console.log('✅ Projects Slider initialized');
+            console.log('✅ Projects Slider initialized with dynamic content');
             
         } catch (error) {
             console.error('❌ Error initializing Projects Slider:', error);
+            // Fallback to static content
+            this.initWithStaticContent();
+        }
+    }
+
+    /**
+     * Load projects data from service and render HTML cards
+     */
+    async loadAndRenderProjects() {
+        try {
+            // Load projects data
+            this.projectsData = await this.config.dataService.loadProjects();
+            
+            // Clear existing content
+            this.container.innerHTML = '';
+            
+            // Render project cards
+            this.renderProjectCards();
+            
+            console.log(`✅ Rendered ${this.projectsData.length} project cards`);
+            
+        } catch (error) {
+            console.error('❌ Error loading projects:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Render HTML cards from projects data
+     */
+    renderProjectCards() {
+        const cardsHTML = this.projectsData.map(project => this.createProjectCardHTML(project)).join('');
+        this.container.innerHTML = cardsHTML;
+        
+        // Update originalCards reference
+        this.originalCards = Array.from(this.container.querySelectorAll(this.config.cardSelector));
+    }
+
+    /**
+     * Create HTML for a single project card
+     * @param {Object} project - Project data object
+     * @returns {string} HTML string for the project card
+     */
+    createProjectCardHTML(project) {
+        const cardContent = `
+            <img 
+                src="${project.image}" 
+                alt="${project.alt || project.title}"
+                loading="lazy"
+                ${project.translateKeys?.title ? `data-translate-alt="${project.translateKeys.title}"` : ''}
+            />
+            <figcaption>
+                <h3 ${project.translateKeys?.title ? `data-translate="${project.translateKeys.title}"` : ''}>
+                    ${project.title}
+                </h3>
+                <p ${project.translateKeys?.description ? `data-translate="${project.translateKeys.description}"` : ''}>
+                    ${project.description}
+                </p>
+            </figcaption>
+        `;
+
+        // If project has a URL, wrap the content in a clickable link
+        if (project.url) {
+            return `
+                <figure class="project-card" data-project-id="${project.id}">
+                    <a 
+                        href="${project.url}" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="project-card-link"
+                        aria-label="Ver proyecto: ${project.title}"
+                        data-project-url="${project.url}"
+                    >
+                        ${cardContent}
+                    </a>
+                </figure>
+            `;
+        } else {
+            // Fallback for projects without URL
+            return `
+                <figure class="project-card" data-project-id="${project.id}">
+                    ${cardContent}
+                </figure>
+            `;
+        }
+    }
+
+    /**
+     * Fallback initialization with static content (for backwards compatibility)
+     */
+    initWithStaticContent() {
+        try {
+            this.container = document.querySelector(this.config.selector);
+            if (!this.container) {
+                console.warn('⚠️ Projects container not found');
+                return;
+            }
+            
+            // Get existing static cards
+            this.originalCards = Array.from(this.container.querySelectorAll(this.config.cardSelector));
+            if (this.originalCards.length === 0) {
+                console.warn('⚠️ No project cards found');
+                return;
+            }
+            
+            // Setup slider with static content
+            this.setupSlider();
+            this.createAnimation();
+            this.bindEvents();
+            
+            this.isInitialized = true;
+            console.log('✅ Projects Slider initialized with static content');
+            
+        } catch (error) {
+            console.error('❌ Error initializing with static content:', error);
         }
     }
     
@@ -150,10 +270,84 @@ class ProjectsSlider {
             }
         });
         
-        // Prevent click events during/after dragging
+        // Handle clicks on project links
+        this.setupLinkClickHandlers();
+    }
+
+    /**
+     * Setup click handlers for project links
+     */
+    setupLinkClickHandlers() {
         this.allCards.forEach(card => {
-            card.addEventListener('click', this.handleCardClick.bind(this), true);
+            const link = card.querySelector('.project-card-link');
+            if (link) {
+                // Prevent link navigation during drag
+                link.addEventListener('click', this.handleLinkClick.bind(this), true);
+                
+                // Add keyboard support
+                link.addEventListener('keydown', this.handleLinkKeydown.bind(this));
+                
+                // Add visual feedback
+                link.addEventListener('mouseenter', this.handleLinkHover.bind(this));
+                link.addEventListener('mouseleave', this.handleLinkLeave.bind(this));
+            }
         });
+    }
+
+    /**
+     * Handle clicks on project links
+     * @param {Event} e - Click event
+     */
+    handleLinkClick(e) {
+        if (this.preventClick || this.isDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return false;
+        }
+        
+        // Allow normal link behavior
+        const url = e.currentTarget.getAttribute('href');
+        const projectId = e.currentTarget.closest('.project-card').getAttribute('data-project-id');
+        
+        console.log(`🔗 Opening project: ${projectId} -> ${url}`);
+        
+        // Optional: Add analytics tracking here
+        // trackProjectClick(projectId, url);
+    }
+
+    /**
+     * Handle keyboard navigation on links
+     * @param {KeyboardEvent} e - Keyboard event
+     */
+    handleLinkKeydown(e) {
+        // Allow Enter and Space to activate links
+        if (e.key === 'Enter' || e.key === ' ') {
+            if (!this.preventClick && !this.isDragging) {
+                // Let the browser handle the navigation
+                return;
+            } else {
+                e.preventDefault();
+            }
+        }
+    }
+
+    /**
+     * Add hover effect to links
+     * @param {Event} e - Mouse enter event
+     */
+    handleLinkHover(e) {
+        if (!this.isDragging) {
+            e.currentTarget.classList.add('project-card-hover');
+        }
+    }
+
+    /**
+     * Remove hover effect from links
+     * @param {Event} e - Mouse leave event
+     */
+    handleLinkLeave(e) {
+        e.currentTarget.classList.remove('project-card-hover');
     }
     
     createAnimation() {
@@ -365,14 +559,6 @@ class ProjectsSlider {
         }, 10);
     }
     
-    handleCardClick(e) {
-        if (this.preventClick) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-        }
-    }
-    
     applyDragTransform() {
         if (!this.container || !this.timeline) return;
         
@@ -437,6 +623,78 @@ class ProjectsSlider {
     setSpeed(speed) {
         this.config.speed = speed;
         this.createAnimation();
+    }
+
+    /**
+     * Refresh slider with updated project data
+     * @param {boolean} forceReload - Force reload data from service
+     * @returns {Promise<void>}
+     */
+    async refresh(forceReload = false) {
+        if (!this.config.dataService) {
+            console.warn('⚠️ No data service available for refresh');
+            return;
+        }
+
+        try {
+            // Force reload data if requested
+            if (forceReload) {
+                this.config.dataService.isLoaded = false;
+            }
+
+            // Pause current animation
+            if (this.timeline) {
+                this.timeline.pause();
+            }
+
+            // Reload and render projects
+            await this.loadAndRenderProjects();
+
+            // Recreate slider components
+            this.setupSlider();
+            this.createAnimation();
+
+            console.log('🔄 Projects Slider refreshed');
+
+        } catch (error) {
+            console.error('❌ Error refreshing slider:', error);
+        }
+    }
+
+    /**
+     * Add a new project and refresh the slider
+     * @param {Object} project - Project data object
+     * @returns {Promise<boolean>} Success status
+     */
+    async addProject(project) {
+        if (!this.config.dataService) {
+            console.warn('⚠️ No data service available for adding projects');
+            return false;
+        }
+
+        const success = this.config.dataService.addProject(project);
+        if (success) {
+            await this.refresh();
+        }
+        return success;
+    }
+
+    /**
+     * Remove a project and refresh the slider
+     * @param {string} projectId - Project ID to remove
+     * @returns {Promise<boolean>} Success status
+     */
+    async removeProject(projectId) {
+        if (!this.config.dataService) {
+            console.warn('⚠️ No data service available for removing projects');
+            return false;
+        }
+
+        const success = this.config.dataService.removeProject(projectId);
+        if (success) {
+            await this.refresh();
+        }
+        return success;
     }
     
     destroy() {

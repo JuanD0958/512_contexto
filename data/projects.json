@@ -1,0 +1,76 @@
+{
+  "projects": [
+    {
+      "id": "casa-madera-moderna",
+      "title": "Casa Jaibaná",
+      "description": "Diseño contemporáneo que fusiona grises neutros, materiales naturales y luces cálidas. Un espacio minimalista que destaca por su armonía visual y funcionalidad, creando una atmósfera acogedora y sofisticada.",
+      "image": "images/projects/jaibana_1.png",
+      "alt": "Casa Jaibaná",
+      "url": "https://www.behance.net/gallery/casa-jaibana",
+      "translateKeys": {
+        "title": "project1-title",
+        "description": "project1-desc"
+      }
+    },
+    {
+      "id": "fachada-de-luz",
+      "title": "Fachada de Luz",
+      "description": "Edificio comercial con fachada dinámica que juega con la luz natural y artificial para crear una experiencia visual única.",
+      "image": "images/contexto_concrete.webp",
+      "alt": "Fachada de Luz",
+      "url": "https://www.behance.net/gallery/fachada-de-luz",
+      "translateKeys": {
+        "title": "project2-title",
+        "description": "project2-desc"
+      }
+    },
+    {
+      "id": "oficinas-minimalistas",
+      "title": "Oficinas Minimalistas",
+      "description": "Espacio de trabajo que maximiza la productividad a través del diseño limpio y la optimización de la luz natural.",
+      "image": "images/contexto_concrete.webp",
+      "alt": "Oficinas Minimalistas",
+      "url": "https://www.behance.net/gallery/oficinas-minimalistas",
+      "translateKeys": {
+        "title": "project3-title",
+        "description": "project3-desc"
+      }
+    },
+    {
+      "id": "casa-del-patio",
+      "title": "Casa del Patio",
+      "description": "Vivienda que reinterpreta el concepto tradicional del patio colonial con un enfoque contemporáneo y sostenible.",
+      "image": "images/contexto_concrete.webp",
+      "alt": "Casa del Patio",
+      "url": "https://www.behance.net/gallery/casa-del-patio",
+      "translateKeys": {
+        "title": "project4-title",
+        "description": "project4-desc"
+      }
+    },
+    {
+      "id": "loft-urbano",
+      "title": "Loft Urbano",
+      "description": "Transformación de un espacio industrial en un hogar moderno que celebra la historia del edificio.",
+      "image": "images/contexto_concrete.webp",
+      "alt": "Loft Urbano",
+      "url": "https://www.behance.net/gallery/loft-urbano",
+      "translateKeys": {
+        "title": "project5-title",
+        "description": "project5-desc"
+      }
+    },
+    {
+      "id": "hotel-boutique",
+      "title": "Hotel Boutique",
+      "description": "Proyecto hotelero que fusiona la arquitectura local con amenidades de lujo para una experiencia única.",
+      "image": "images/contexto_concrete.webp",
+      "alt": "Hotel Boutique",
+      "url": "https://www.behance.net/gallery/hotel-boutique",
+      "translateKeys": {
+        "title": "project6-title",
+        "description": "project6-desc"
+      }
+    }
+  ]
+}
