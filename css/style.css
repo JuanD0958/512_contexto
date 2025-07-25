@@ -529,6 +529,96 @@ body {
 }
 
 /* ====================================
+   PROCESS SECTION
+   ==================================== */
+
+.process-section {
+    padding: 5rem 0;
+    background: #0a0a0a;
+    min-height: 100vh;
+    position: relative;
+}
+
+.process-section .section-heading {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.process-section .large-text {
+    color: #cccccc;
+    margin-bottom: 3rem;
+}
+
+#process-svg {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Lines styling */
+.line {
+    stroke: #333;
+    stroke-width: 2;
+    opacity: 0.6;
+}
+
+/* Step text styling */
+.step-text {
+    fill: white;
+    font-family: var(--font-primary);
+    font-size: 18px;
+    font-weight: 500;
+    visibility: hidden;
+    transform-origin: center;
+}
+
+/* Main animated path */
+.theLine {
+    stroke: #ff6b35;
+    fill: none;
+    stroke-width: 10px;
+    stroke-dasharray: 2000 2000;
+    stroke-dashoffset: 2000;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 1;
+}
+
+/* Circles/balls */
+.ball {
+    fill: #ff6b35;
+    visibility: hidden;
+    transform-origin: center;
+}
+
+.ball01 {
+    visibility: visible; /* First ball is always visible */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #process-svg {
+        padding: 0 1rem;
+    }
+    
+    .step-text {
+        font-size: 14px;
+    }
+    
+    .step-text[x="50"] {
+        x: 30;
+    }
+}
+
+@media (max-width: 480px) {
+    .step-text {
+        font-size: 12px;
+    }
+}
+
+/* ====================================
    PROJECT CARDS
    ==================================== */
 

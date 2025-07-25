@@ -44,6 +44,9 @@ class ArchitectureApp {
         // Initialize dynamic projects
         this.initProjectsSection();
 
+        // Initialize process section
+        this.initProcessSection();
+
         this.initialized = true;
         console.log('✅ Architecture app initialized successfully');
     }
@@ -900,6 +903,155 @@ class ArchitectureApp {
         }
 
         return card;
+    }
+
+    // Initialize process section with ScrollTrigger animation
+    initProcessSection() {
+        try {
+            // Check if GSAP and ScrollTrigger are available
+            if (!window.gsap || !window.ScrollTrigger) {
+                console.log('⚠️ GSAP or ScrollTrigger not available, skipping process animation');
+                return;
+            }
+
+            // Register ScrollTrigger plugin
+            window.gsap.registerPlugin(window.ScrollTrigger);
+
+            const processSection = document.querySelector('#process');
+            const processSvg = document.querySelector('#process-svg');
+            const theLine = document.querySelector('.theLine');
+
+            if (!processSection || !processSvg || !theLine) {
+                console.log('⚠️ Process section elements not found');
+                console.log('processSection:', processSection);
+                console.log('processSvg:', processSvg);
+                console.log('theLine:', theLine);
+                return;
+            }
+
+            console.log('✅ All process section elements found, initializing animation...');
+
+            // Set GSAP defaults like in reference
+            window.gsap.defaults({ ease: "none" });
+
+            // Create pulse animations for balls and text (updated for 12 steps)
+            const pulses = window.gsap.timeline({
+                defaults: {
+                    duration: 0.05,
+                    autoAlpha: 1,
+                    scale: 1.5,
+                    transformOrigin: "center",
+                    ease: "back.out(1.7)"
+                }
+            })
+            .to(".ball02, .text01", {}, 0.08)
+            .to(".ball03, .text02", {}, 0.16)
+            .to(".ball04, .text03", {}, 0.25)
+            .to(".ball05, .text04", {}, 0.33)
+            .to(".ball06, .text05", {}, 0.41)
+            .to(".ball07, .text06", {}, 0.50)
+            .to(".ball08, .text07", {}, 0.58)
+            .to(".ball09, .text08", {}, 0.66)
+            .to(".ball10, .text09", {}, 0.75)
+            .to(".ball11, .text10", {}, 0.83)
+            .to(".ball12, .text11", {}, 0.91)
+            .to(".text12", {}, 0.98);
+
+            // Main timeline with scroll trigger (exactly like reference)
+            const main = window.gsap.timeline({
+                defaults: { duration: 1 },
+                scrollTrigger: {
+                    trigger: processSection,
+                    scrub: 1,
+                    start: "top top", // Start when section reaches top of viewport
+                    end: "+=2500px", // Animation length
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    refreshPriority: -1,
+                    onUpdate: (self) => {
+                        console.log("ScrollTrigger progress:", self.progress);
+                        console.log("Scroll position:", window.pageYOffset);
+                    },
+                    onStart: () => {
+                        console.log("ScrollTrigger started");
+                    },
+                    onEnter: () => {
+                        console.log("ScrollTrigger entered");
+                    }
+                }
+            })
+            .to(".ball01", { duration: 2, autoAlpha: 1 })
+            // Animate the main line drawing - slower to match ball movement
+            .to(".theLine", 
+                { 
+                    strokeDashoffset: 0,
+                    duration: 1.15  // Extended duration for 12 steps
+                }, 0)
+            // Animate ball01 movement along the path through all 12 steps
+            .to(".ball01", {
+                x: 310,
+                y: 100,
+                duration: 0.1
+            }, 0.08)
+            .to(".ball01", {
+                x: 400,
+                y: 200,
+                duration: 0.1
+            }, 0.16)
+            .to(".ball01", {
+                x: 450,
+                y: 300,
+                duration: 0.1
+            }, 0.25)
+            .to(".ball01", {
+                x: 445,
+                y: 400,
+                duration: 0.1
+            }, 0.33)
+            .to(".ball01", {
+                x: 400,
+                y: 500,
+                duration: 0.1
+            }, 0.41)
+            .to(".ball01", {
+                x: 360,
+                y: 600,
+                duration: 0.1
+            }, 0.50)
+            .to(".ball01", {
+                x: 350,
+                y: 700,
+                duration: 0.1
+            }, 0.58)
+            .to(".ball01", {
+                x: 390,
+                y: 800,
+                duration: 0.1
+            }, 0.66)
+            .to(".ball01", {
+                x: 420,
+                y: 900,
+                duration: 0.1
+            }, 0.75)
+            .to(".ball01", {
+                x: 440,
+                y: 1000,
+                duration: 0.1
+            }, 0.83)
+            .to(".ball01", {
+                x: 420,
+                y: 1100,
+                duration: 0.1
+            }, 0.91)
+            // Add the pulses timeline
+            .add(pulses, 0.08);
+
+            console.log('✅ Process section animation initialized (reference style)');
+        } catch (error) {
+            console.error('❌ Error initializing process section:', error);
+        }
     }
 
     // Helper method to detect mobile devices
