@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Project Links</title>
+    <link rel="stylesheet" href="css/pico.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Project Links Test</h1>
+        
+        <section class="projects">
+            <div class="projects-grid">
+                <!-- Project cards will be dynamically loaded here -->
+            </div>
+        </section>
+        
+        <div style="margin-top: 2rem;">
+            <h2>Manual Test Links:</h2>
+            <p><a href="https://www.behance.net/gallery/casa-jaibana" target="_blank" rel="noopener noreferrer">Casa Jaibaná (Manual Link)</a></p>
+            <p><a href="https://www.behance.net/gallery/fachada-de-luz" target="_blank" rel="noopener noreferrer">Fachada de Luz (Manual Link)</a></p>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="js/libs/gsap.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/projects-data-service.js"></script>
+    <script src="js/projects-slider.js"></script>
+    
+    <script>
+        // Initialize the slider for testing
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🧪 Initializing test...');
+            
+            // Check if data service is available
+            if (window.projectsDataService) {
+                console.log('✅ Data service found');
+                
+                // Initialize slider
+                const slider = new ProjectsSlider({
+                    speed: 30,
+                    pauseOnHover: true,
+                    dragEnabled: true
+                });
+                
+                console.log('✅ Slider initialized');
+            } else {
+                console.error('❌ Data service not found');
+            }
+        });
+    </script>
+</body>
+</html>
