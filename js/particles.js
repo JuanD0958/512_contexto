@@ -139,10 +139,11 @@ class ParticleSystem {
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: 1001;
             pointer-events: none;
             background-color: transparent;
-            opacity: 1.0;
+            opacity: 1.6;
+            mix-blend-mode: soft-light;
         `;
         
         const container = document.querySelector(this.config.containerSelector);

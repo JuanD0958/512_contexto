@@ -1,414 +1,255 @@
-# Cinco Doce — Arquitectura Website
+# 512 CONTEXTO - Clean JavaScript Architecture
 
-![Cinco Doce Logo](images/logo_orange.webp)
+This project has been refactored from a monolithic minified JavaScript bundle to a clean, modular architecture using modern best practices.
 
-Un sitio web moderno y elegante para **Cinco Doce**, firma de arquitectura y diseño contemporáneo en Colombia. El sitio combina diseño minimalista con animaciones sofisticadas para crear una experiencia inmersiva que refleja la filosofía de la empresa: "Arquitectura atemporal, impulsada por la visión".
+## 🏗️ Architecture Overview
 
-## 🌟 Características Principales
+### Previous Architecture Issues
+- **Monolithic Bundle**: All libraries bundled into a single `base.js` file (500KB+)
+- **Hard to Debug**: Minified code was difficult to troubleshoot
+- **No Separation of Concerns**: Utilities, state management, and UI components mixed together
+- **Difficult to Maintain**: Changes required editing the entire bundle
 
-### 🎨 **Diseño y Experiencia**
-- **Interfaz Minimalista**: Diseño limpio que enfoca la atención en los proyectos
-- **Totalmente Responsivo**: Experiencia optimizada para todos los dispositivos
-- **Animaciones Cinematográficas**: Transiciones suaves y efectos visuales elegantes
-- **Tipografía Personalizada**: Fuente custom `cincodoce-font.ttf` para identidad de marca
-- **Tema Oscuro Elegante**: Paleta de colores sophisticated en tonos oscuros
+### New Clean Architecture
+- **Modular Structure**: Separated into logical modules
+- **CDN Dependencies**: External libraries loaded from CDNs for better performance
+- **Clean Code**: Readable, maintainable, and well-documented
+- **Modern Patterns**: Uses ES6+ features and modern JavaScript patterns
 
-### ⚡ **Rendimiento y Tecnología**
-- **Carga Ultra Rápida**: Imágenes optimizadas en formato WebP con lazy loading
-- **Scroll Suave Cinematográfico**: Implementado con Lenis.js para fluidez premium
-- **Partículas 3D Interactivas**: Sistema de partículas Three.js que responde al scroll
-- **Animaciones de Alto Rendimiento**: GSAP para animaciones fluidas y optimizadas
-- **SEO Completamente Optimizado**: Meta tags, Open Graph, y estructura semántica
-
-### 🏗️ **Arquitectura del Código**
-- **Modular y Escalable**: Código organizado en módulos independientes
-- **ES6+ JavaScript**: Sintaxis moderna y buenas prácticas
-- **CSS Organizados**: Variables CSS, metodología component-based
-- **Sin Dependencias CDN**: Todas las librerías servidas localmente
-
-## 🚀 Demo en Vivo
-
-Visita el sitio en producción: [cincodocestudio.com](https://cincodocestudio.com)
-
-## 📁 Estructura del Proyecto
+## 📁 File Structure
 
 ```
-cinco-doce-website/
-├── 📄 index.html              # Página principal
-├── 📦 package.json            # Configuración del proyecto
-├── ⚙️ start-dev.sh            # Script de desarrollo
-│
-├── 🎨 css/                    # Estilos organizados
-│   ├── pico.min.css          # Framework CSS base (minimalista)
-│   ├── base.css              # Variables, fuentes, estilos base
-│   └── components.css        # Componentes específicos y animaciones
-│
-├── ⚡ js/                     # JavaScript modular
-│   ├── 📚 libs/              # Librerías externas (locales)
-│   │   ├── gsap.min.js       # Animaciones de alto rendimiento
-│   │   ├── lenis.min.js      # Scroll suave cinematográfico
-│   │   ├── ScrollTrigger.min.js # Animaciones basadas en scroll
-│   │   ├── three.min.js      # Motor 3D para partículas
-│   │   └── three.module.js   # Módulos Three.js
-│   │
-│   ├── 🔄 loader.js          # Sistema de carga de página
-│   ├── 🎯 main.js            # Controlador principal de la app
-│   ├── 🧭 navigation.js      # Lógica de navegación
-│   ├── ✨ particles.js       # Sistema de partículas 3D
-│   ├── 🖼️ projects-slider.js  # Carrusel de proyectos
-│   └── 📜 scroll.js          # Configuración de scroll suave
-│
-├── 🔤 fonts/                 # Tipografía personalizada
-│   └── cincodoce-font.ttf    # Fuente custom de la marca
-│
-├── 🖼️ images/                # Assets optimizados
-│   ├── contexto_concrete.webp # Imagen principal proyectos
-│   ├── favicon.ico           # Favicon del sitio
-│   ├── instagram_logo.webp   # Icono Instagram
-│   ├── logo_orange.webp      # Logo principal
-│   └── whatsapp_logo.webp    # Icono WhatsApp
-│
-└── 📖 README.md              # Esta documentación
+js/
+├── utils.js           # Utility functions and helpers
+├── state-manager.js   # Lightweight state management (Redux-inspired)
+├── ui-components.js   # Reusable UI components (Modal, Tabs, etc.)
+└── app.js            # Main application orchestrator
 ```
 
-## 🛠️ Tecnologías Utilizadas
+## 🧩 Module Breakdown
 
-| Tecnología | Propósito | Versión |
-|------------|-----------|---------|
-| **HTML5** | Estructura semántica | Latest |
-| **CSS3** | Estilos y animaciones | Latest |
-| **JavaScript ES6+** | Lógica e interactividad | Latest |
-| **Three.js** | Gráficos 3D y partículas | Latest |
-| **GSAP** | Animaciones premium | Latest |
-| **Lenis** | Scroll suave cinematográfico | Latest |
-| **PicoCSS** | Framework CSS minimalista | v1.5+ |
+### `utils.js`
+Contains utility functions previously provided by Lodash and other libraries:
+- **AnimationUtils**: CSS animation helpers, easing functions
+- **DOMUtils**: DOM manipulation utilities (selector, event handling)
+- **FeatureDetection**: Browser capability detection (replaces Modernizr)
+- **MathUtils**: Mathematical helper functions
 
-## 🚀 Instalación y Desarrollo
+### `state-manager.js`
+Lightweight state management solution inspired by Redux:
+- **StateManager**: Core state management class
+- **ActionCreators**: Helper functions for common actions
+- **Middleware**: Logger, validation, and async middleware
+- **Global State**: Pre-configured application state
 
-### Requisitos Previos
-- Node.js 14.0.0 o superior
-- NPM (incluido con Node.js)
-- Git
+### `ui-components.js`
+Reusable UI components with clean APIs:
+- **Modal**: Accessible modal dialogs
+- **Notification**: Toast/notification system
+- **Tabs**: Tab navigation component
+- **Dropdown**: Dropdown menu component
 
-### Instalación Rápida
+### `app.js`
+Main application orchestrator:
+- **App Class**: Central application controller
+- **Feature Detection**: Browser capability detection
+- **Component Initialization**: Auto-discovery and initialization
+- **Event Management**: Global event handling and keyboard shortcuts
+- **Form Validation**: Built-in form validation system
 
-```bash
-# Clonar el repositorio
-git clone https://github.com/tu-usuario/cinco-doce-website.git
-cd cinco-doce-website
+## 🔗 CDN Dependencies
 
-# Instalar dependencias
-npm install
-
-# Iniciar servidor de desarrollo
-npm run dev
-```
-
-El sitio estará disponible en `http://localhost:3000`
-
-## 🐳 Ejecución con Docker
-
-Puedes ejecutar este sitio en un contenedor Docker, tanto para producción como para desarrollo local.
-
-### 🔥 Producción (Docker)
-
-```bash
-# Construir la imagen optimizada
-docker build -t cinco-doce-web:latest .
-
-# Ejecutar el contenedor en modo producción
-docker run --rm -p 3000:3000 --env NODE_ENV=production cinco-doce-web:latest
-```
-
-El sitio estará disponible en `http://localhost:3000`
-
-### 🟢 Desarrollo (Docker)
-
-```bash
-# Construir la imagen de desarrollo
-docker build --target=development -t cinco-doce-web:dev .
-
-# Ejecutar el contenedor con volumen para hot reload (opcional)
-docker run --rm -p 3000:3000 -v ${PWD}:/app -v /app/node_modules --env NODE_ENV=development cinco-doce-web:dev
-```
-
-Puedes editar archivos localmente y ver los cambios reflejados (requiere reiniciar el contenedor si no usas herramientas de live reload).
-
-### 🧩 Docker Compose (multi-servicio)
-
-Para orquestar varios servicios (web, base de datos, API, etc.), usa `docker-compose.yml`:
-
-```bash
-docker compose up --build
-```
-
-Esto levantará el servicio web y dejará espacio para agregar otros microservicios en el futuro.
-
-#### Variables de entorno
-Puedes crear un archivo `.env` en la raíz y Docker Compose lo cargará automáticamente. Ejemplo:
-
-```
-NODE_ENV=production
-CUSTOM_ENV_VAR=valor
-```
-
----
-
-### Opciones de Desarrollo
-
-#### 🟢 **Método Recomendado (NPM)**
-```bash
-npm run dev          # Servidor con auto-apertura del navegador
-npm start            # Servidor básico en puerto 3000
-```
-
-#### 🔧 **Script de Desarrollo Personalizado**
-```bash
-# Hacer ejecutable (solo primera vez)
-chmod +x start-dev.sh
-
-# Ejecutar
-./start-dev.sh
-```
-
-#### 🐍 **Servidor Python (Alternativo)**
-```bash
-npm run serve        # Usa Python HTTP server
-```
-
-#### 🆚 **VS Code Live Server**
-Instala la extensión "Live Server" y abre `index.html`
-
-## 🎨 Personalización
-
-### 🎨 **Colores y Tema**
-
-Los colores se definen en `css/base.css`:
-
-```css
-:root {
-  /* Colores principales */
-  --color-background-primary: #121212;   /* Fondo principal */
-  --color-background-secondary: #1C1C1C; /* Fondo secundario */
-  --color-accent: #e85015;                /* Color de acento (naranja) */
-  --color-text-primary: #FFFFFF;         /* Texto principal */
-  --color-text-secondary: #B3B3B3;       /* Texto secundario */
-}
-```
-
-### 🔤 **Tipografía**
-
-Para cambiar la fuente personalizada:
-
-1. Coloca la nueva fuente en `fonts/`
-2. Actualiza en `css/base.css`:
-
-```css
-@font-face {
-  font-family: 'CincoDoceFont';
-  src: url('../fonts/tu-nueva-fuente.ttf') format('truetype');
-  font-display: swap;
-}
-```
-
-### 📝 **Contenido**
-
-Edita directamente en `index.html`:
-- Textos del hero section
-- Información de proyectos
-- Datos de contacto
-- Meta tags SEO
-
-### ✨ **Animaciones**
-
-Las animaciones se configuran en `css/components.css`:
-- Hero SVG animations
-- Transiciones de componentes
-- Efectos hover y estados
-
-## 📞 Información de Contacto
-
-Actualiza los enlaces de contacto en `index.html`:
+The following libraries are loaded from CDNs for better performance and caching:
 
 ```html
-<!-- WhatsApp -->
-<a href="https://wa.me/573001234567" target="_blank" rel="noopener">
+<!-- jQuery (for legacy compatibility) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Instagram -->
-<a href="https://www.instagram.com/______cincodoce/" target="_blank" rel="noopener">
+<!-- Lodash (utility functions) -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 
-<!-- Email -->
-<p>contexto512studio@gmail.com</p>
+<!-- GSAP (animations) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<!-- Three.js (3D graphics) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 ```
 
-## 🌐 Despliegue en Producción
+## 🚀 Usage Examples
 
-### 🔥 **Vercel (Recomendado)**
-```bash
-# Instalar Vercel CLI
-npm i -g vercel
-
-# Desplegar
-vercel
-
-# Configuración:
-# Framework: None (sitio estático)
-# Build Command: [dejar vacío]
-# Output Directory: [dejar vacío - usa raíz]
-```
-
-### 🚀 **Netlify**
-1. Arrastra la carpeta del proyecto a [netlify.com](https://netlify.com)
-2. O conecta con GitHub para despliegue automático
-3. Build settings: deja todo en blanco (sitio estático)
-
-### 📄 **GitHub Pages**
-```bash
-# En tu repositorio GitHub:
-# Settings > Pages > Source: Deploy from branch > main
-```
-
-### 🐳 **Docker (Opcional)**
-```dockerfile
-FROM nginx:alpine
-COPY . /usr/share/nginx/html
-EXPOSE 80
-```
-
-## 🔧 Scripts Disponibles
-
-```bash
-npm run dev      # Servidor desarrollo con auto-apertura
-npm start        # Servidor desarrollo básico
-npm run build    # No se requiere build (archivos estáticos)
-npm run serve    # Servidor Python alternativo
-```
-
-## 🎯 Características Técnicas Avanzadas
-
-### ✨ **Sistema de Partículas**
-- Renderizado WebGL con Three.js
-- Partículas que responden al scroll
-- Optimizado para 60fps en dispositivos móviles
-- Efectos de profundidad y parallax
-
-### 📜 **Scroll Cinematográfico**
-- Lenis.js para suavidad premium
-- Interpolación personalizada
-- ScrollTrigger para animaciones basadas en posición
-- Optimizado para rendimiento
-
-### 🔄 **Sistema de Carga**
-- Loader SVG personalizado con animación
-- Carga progresiva de assets
-- Transiciones suaves entre estados
-- Fallbacks para compatibilidad
-
-### 🎨 **Animaciones Hero**
-- SVG animado con trazos progresivos
-- Delays escalonados para efecto cinematográfico
-- Tipografía animada palabra por palabra
-- Responsive en todos los dispositivos
-
-## 📊 Optimizaciones de Rendimiento
-
-### 🖼️ **Imágenes**
-- Formato WebP para 30-50% menos peso
-- Lazy loading nativo para carga rápida
-- Dimensiones optimizadas para diferentes viewports
-
-### 💾 **Caching**
-- Service Worker ready (futuro)
-- Headers de cache optimizados
-- Compresión gzip/brotli en servidor
-
-### 📱 **Mobile First**
-- Diseño responsive desde mobile
-- Touch gestures optimizados
-- Animaciones adaptadas para dispositivos táctiles
-
-## 🔮 Roadmap y Futuras Características
-
-### 🔐 **Fase 2: Backend**
-- [ ] Sistema de login para admin
-- [ ] CMS headless (Strapi/Contentful)
-- [ ] API para gestión de proyectos
-
-### 🤖 **Fase 3: IA y Automatización**
-- [ ] Generador automático de cotizaciones
-- [ ] Chatbot con IA para consultas
-- [ ] Análisis automático de fotos de proyectos
-
-### 💳 **Fase 4: E-commerce**
-- [ ] Sistema de pagos (Stripe/MercadoPago)
-- [ ] Productos digitales (planos, consultas)
-- [ ] Subscripciones para servicios premium
-
-### 📈 **Fase 5: Analytics**
-- [ ] Dashboard de métricas avanzadas
-- [ ] A/B testing automatizado
-- [ ] Heatmaps y análisis de UX
-
-## 🐛 Solución de Problemas
-
-### ❌ **Problemas Comunes**
-
-**El servidor no inicia:**
-```bash
-# Verificar Node.js
-node --version  # Debe ser 14.0.0+
-
-# Reinstalar dependencias
-rm -rf node_modules package-lock.json
-npm install
-```
-
-**Las animaciones no funcionan:**
-- Verifica que JavaScript esté habilitado
-- Revisa la consola del navegador para errores
-- Asegúrate de que los archivos JS se cargan correctamente
-
-**Las imágenes no cargan:**
-- Verifica que las rutas sean correctas
-- Confirma que el servidor sirve archivos estáticos
-- Revisa permisos de archivos
-
-### 🔍 **Debug Mode**
-
-Para desarrolladores, agrega esto a la consola:
+### Basic DOM Manipulation
 ```javascript
-// Habilitar logs detallados
-window.DEBUG_MODE = true;
-
-// Ver estado de la aplicación
-console.log(window.CincoDoce);
+// Using our custom DOMUtils
+const element = DOMUtils.$('.my-element');
+DOMUtils.addClass(element, 'active');
+DOMUtils.on(element, 'click', handleClick);
 ```
 
-## 🤝 Contribución
+### State Management
+```javascript
+// Subscribe to state changes
+const unsubscribe = AppState.subscribe((state, action) => {
+  console.log('State updated:', state);
+});
 
-Este es un proyecto privado para Cinco Doce. Para sugerencias o mejoras:
+// Update state
+AppState.updateProperty('ui.loading', true);
+AppState.setState({ user: { name: 'John' } });
+```
 
-1. Crea un issue describiendo la mejora
-2. Fork el proyecto (si tienes acceso)
-3. Crea una rama para tu feature
-4. Commit tus cambios
-5. Crea un Pull Request
+### UI Components
+```javascript
+// Create a modal
+const modal = new Modal();
+modal.setContent('<h3>Hello World</h3>').open();
 
-## 📜 Licencia
+// Show notifications
+notifications.success('Operation completed successfully!');
+notifications.error('Something went wrong');
 
-© 2025 Cinco Doce. Todos los derechos reservados.
+// Initialize tabs
+const tabs = new Tabs('.tab-container');
+```
 
-Este proyecto es propiedad de Cinco Doce y está protegido por derechos de autor. No está permitido el uso, distribución o modificación sin autorización expresa.
+### Feature Detection
+```javascript
+// Check browser capabilities
+if (FeatureDetection.touch()) {
+  // Touch-specific code
+}
 
-## 👥 Créditos
+if (FeatureDetection.webgl()) {
+  // WebGL-specific code
+}
+```
 
-**Diseño y Desarrollo:** Equipo Cinco Doce  
-**Arquitectura Web:** Especialistas en desarrollo frontend  
-**Consultoría UX:** Expertos en experiencia de usuario  
+## 🎯 Key Benefits
+
+### Performance
+- **Smaller Initial Load**: Only load what you need
+- **CDN Caching**: External libraries cached across sites
+- **Lazy Loading**: Components initialized only when needed
+
+### Maintainability
+- **Readable Code**: Clean, well-documented modules
+- **Separation of Concerns**: Each module has a single responsibility
+- **Easy Testing**: Individual modules can be tested in isolation
+
+### Developer Experience
+- **Better Debugging**: Source maps and readable code
+- **IDE Support**: Better autocomplete and error detection
+- **Modern JavaScript**: ES6+ features and patterns
+
+### Accessibility
+- **Keyboard Navigation**: Built-in keyboard shortcuts and focus management
+- **Screen Reader Support**: Semantic HTML and ARIA attributes
+- **Reduced Motion**: Respects user preferences for motion
+
+## 🔧 Customization
+
+### Adding New Components
+```javascript
+// Create a new component
+class MyComponent {
+  constructor(element) {
+    this.element = element;
+    this.init();
+  }
+  
+  init() {
+    // Component initialization
+  }
+}
+
+// Register with the app
+app.addComponent('my-component', new MyComponent());
+```
+
+### Custom State Actions
+```javascript
+// Define custom reducer
+AppState.reducer = (state, action) => {
+  switch (action.type) {
+    case 'CUSTOM_ACTION':
+      return { ...state, custom: action.payload };
+    default:
+      return state;
+  }
+};
+```
+
+### Adding Middleware
+```javascript
+// Add logging middleware
+AppState.use(Middleware.logger);
+
+// Add custom middleware
+AppState.use((action, state) => {
+  console.log('Custom middleware:', action);
+  return action;
+});
+```
+
+## 🌐 Browser Support
+
+- **Modern Browsers**: Full support for Chrome 60+, Firefox 55+, Safari 12+
+- **Feature Detection**: Graceful degradation for older browsers
+- **Progressive Enhancement**: Core functionality works without JavaScript
+
+## 📱 Responsive Design
+
+- **Mobile-First**: Designed for mobile devices first
+- **Touch-Friendly**: Appropriate touch targets and gestures
+- **Adaptive UI**: Components adapt to screen size and input method
+
+## 🔒 Security Considerations
+
+- **CSP Friendly**: Compatible with Content Security Policy
+- **XSS Protection**: Proper input sanitization in components
+- **HTTPS**: All CDN resources loaded over HTTPS
+
+## 🧪 Testing
+
+Each module can be tested independently:
+
+```javascript
+// Test utilities
+console.assert(MathUtils.clamp(5, 0, 10) === 5);
+console.assert(MathUtils.clamp(-5, 0, 10) === 0);
+
+// Test state management
+const testState = new StateManager({ count: 0 });
+testState.updateProperty('count', 5);
+console.assert(testState.getState().count === 5);
+```
+
+## 🚀 Getting Started
+
+1. **Include CSS**: Add the component styles to your CSS
+2. **Load Dependencies**: Include CDN scripts in your HTML head
+3. **Load Modules**: Include our JavaScript modules before closing body tag
+4. **Initialize**: The app auto-initializes when DOM is ready
+
+```html
+<!-- In <head> -->
+<link href="css/components.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+<!-- Before </body> -->
+<script src="js/utils.js"></script>
+<script src="js/state-manager.js"></script>
+<script src="js/ui-components.js"></script>
+<script src="js/app.js"></script>
+```
+
+## 📚 Next Steps
+
+- **Add Unit Tests**: Implement comprehensive testing
+- **Performance Monitoring**: Add performance tracking
+- **Bundle Optimization**: Consider bundling for production
+- **Progressive Web App**: Add PWA features
+- **TypeScript**: Migrate to TypeScript for better type safety
 
 ---
 
-### 🏗️ **Cinco Doce** — *Arquitectura atemporal, impulsada por la visión*
-
-**¿Tienes un proyecto en mente?**  
-📞 [WhatsApp](https://wa.me/573001234567) | 📸 [Instagram](https://www.instagram.com/______cincodoce/) | ✉️ contexto512studio@gmail.com
+**Note**: This architecture provides a solid foundation that can be extended and customized based on your specific project needs. The modular structure makes it easy to add, remove, or modify components without affecting the entire application.
