@@ -41,6 +41,9 @@ class ArchitectureApp {
         // Initialize particles system
         this.initParticleSystem();
 
+        // Initialize dynamic projects
+        this.initProjectsSection();
+
         this.initialized = true;
         console.log('✅ Architecture app initialized successfully');
     }
@@ -818,6 +821,85 @@ class ArchitectureApp {
         } catch (error) {
             console.error('❌ Error initializing particle system:', error);
         }
+    }
+
+    // Initialize dynamic projects section
+    async initProjectsSection() {
+        try {
+            console.log('🎨 Loading projects data...');
+            const response = await fetch('data/projects.json');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            this.renderProjects(data.projects.slice(0, 6)); // Show first 6 projects
+            console.log('✅ Projects loaded successfully');
+        } catch (error) {
+            console.error('❌ Error loading projects:', error);
+            // Fallback to existing static content if JSON fails
+        }
+    }
+
+    // Render projects dynamically
+    renderProjects(projects) {
+        const projectsGrid = document.querySelector('.projects-grid');
+        if (!projectsGrid || !projects || projects.length === 0) {
+            console.warn('⚠️ Projects grid not found or no projects to display');
+            return;
+        }
+
+        // Clear existing content including loading placeholder
+        projectsGrid.innerHTML = '';
+
+        // Generate project cards
+        projects.forEach(project => {
+            const projectCard = this.createProjectCard(project);
+            projectsGrid.appendChild(projectCard);
+        });
+
+        // Re-initialize any animations or effects for new content
+        setTimeout(() => {
+            this.initScrollEffects();
+        }, 100);
+    }
+
+    // Create individual project card
+    createProjectCard(project) {
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <div class="card-background" style="background-image: url('${project.image}')"></div>
+            <div class="image-overlay"></div>
+            <div class="project-content">
+                <div class="project-category">${project.category || 'Proyecto'}</div>
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-description">${project.description}</p>
+                <a href="${project.url}" class="project-link" target="_blank" rel="noopener noreferrer">
+                    Ver Detalles del Proyecto →
+                </a>
+            </div>
+        `;
+
+        // Add image loading optimization
+        const bgElement = card.querySelector('.card-background');
+        if (bgElement) {
+            // Preload the image for better performance
+            const img = new Image();
+            img.onload = () => {
+                bgElement.classList.add('image-loaded');
+            };
+            img.onerror = () => {
+                console.warn(`⚠️ Failed to load image: ${project.image}`);
+                // Use fallback image
+                bgElement.style.backgroundImage = `url('images/contexto_concrete.webp')`;
+                bgElement.classList.add('image-loaded');
+            };
+            img.src = project.image;
+        }
+
+        return card;
     }
 
     // Helper method to detect mobile devices
