@@ -65,7 +65,7 @@ class ParticleSystem {
             particleCount: this.getOptimalParticleCount(),
             containerSelector: 'body',
             canvasId: 'particle-canvas',
-            colors: ['#ffffff', '#f8f8f8', '#f0f0f0', '#e8e8e8'], // Brighter whites for better light emission
+            colors: ['#ffffff', '#f8f8f8', '#ffffffff', '#fffefeff'], // Brighter whites for better light emission
             size: { min: 1.2, max: 2.6 },
             speed: { min: 1.5, max: 3.5 },
             opacity: { min: 0.4, max: 0.8 },
@@ -254,7 +254,7 @@ class ParticleSystem {
             size: 12, // Increased size to show the glow effect better
             map: particleTexture, // Apply the custom circular texture
             transparent: true,
-            opacity: 0.9,
+            opacity: 2,
             blending: THREE.AdditiveBlending, // Creates beautiful light emission effect
             depthWrite: false,
             vertexColors: true,
