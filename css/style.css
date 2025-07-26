@@ -533,10 +533,42 @@ body {
    ==================================== */
 
 .process-section {
-    padding: 5rem 0;
-    background: #0a0a0a;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     position: relative;
+    background: transparent;
+}
+
+.process-scroll {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 16px; /* Account for scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #ff6b35 transparent;
+}
+
+/* Custom scrollbar styling for webkit browsers */
+.process-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.process-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.process-scroll::-webkit-scrollbar-thumb {
+    background-color: #ff6b35;
+    border-radius: 4px;
+}
+
+.process-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #e55a2e;
+}
+
+/* Ensure content has proper padding and spacing */
+.process-scroll .main-container {
+    padding: 5rem 0;
+    min-height: calc(100vh - 10rem); /* Ensure content is taller than viewport when needed */
 }
 
 .process-section .section-heading {
@@ -599,6 +631,14 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .process-scroll {
+        padding-right: 8px; /* Smaller padding on mobile */
+    }
+    
+    .process-scroll .main-container {
+        padding: 3rem 0; /* Reduced padding on mobile */
+    }
+    
     #process-svg {
         padding: 0 1rem;
     }
@@ -613,6 +653,14 @@ body {
 }
 
 @media (max-width: 480px) {
+    .process-scroll {
+        padding-right: 4px; /* Even smaller padding on very small screens */
+    }
+    
+    .process-scroll .main-container {
+        padding: 2rem 0; /* Further reduced padding */
+    }
+    
     .step-text {
         font-size: 12px;
     }
