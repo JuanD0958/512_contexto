@@ -948,101 +948,107 @@ class ArchitectureApp {
         return card;
     }
 
-    // Initialize process section with ScrollTrigger animation
+    // Initialize modern process section with elegant animations
     initProcessSection() {
         try {
-            // Check if GSAP and ScrollTrigger are available
-            if (!window.gsap || !window.ScrollTrigger) {
-                console.log('⚠️ GSAP or ScrollTrigger not available, skipping process animation');
+            const processSection = document.querySelector('.modern-process-section');
+            const processSteps = document.querySelectorAll('.process-step');
+            const timelineLine = document.querySelector('.timeline-line');
+
+            if (!processSection || !processSteps.length) {
+                console.log('⚠️ Modern process section not found');
                 return;
             }
 
-            // Register ScrollTrigger plugin
-            window.gsap.registerPlugin(window.ScrollTrigger);
+            console.log('✅ Initializing modern process section...');
 
-            const processSection = document.querySelector('#process');
-            const processScroll = document.querySelector('.process-scroll');
-            const processSvg = document.querySelector('#process-svg');
-            const theLine = document.querySelector('.theLine');
-
-            if (!processSection || !processScroll || !processSvg || !theLine) {
-                console.log('⚠️ Process section elements not found');
-                console.log('processSection:', processSection);
-                console.log('processScroll:', processScroll);
-                console.log('processSvg:', processSvg);
-                console.log('theLine:', theLine);
-                return;
-            }
-
-            console.log('✅ All process section elements found, initializing animation...');
-
-            // Set GSAP defaults like in reference
-            window.gsap.defaults({ ease: "none" });
-
-            // Create pulse animations for balls and text (updated for all steps)
-            const pulses = window.gsap.timeline({
-                defaults: {
-                    duration: 0.05,
-                    autoAlpha: 1,
-                    scale: 1.5,
-                    transformOrigin: "center",
-                    ease: "back.out(1.7)"
-                }
-            })
-            .to(".ball02, .text01", {}, 0.10)
-            .to(".ball03, .text02", {}, 0.30)
-            .to(".ball04, .text03", {}, 0.50)
-            .to(".ball05, .text04", {}, 0.75)
-            .to(".ball06, .text05", {}, 0.95)
-            .to(".ball07, .text06", {}, 1.15)
-            .to(".ball08, .text07", {}, 1.35)
-            .to(".ball09, .text08", {}, 1.55)
-            .to(".ball10, .text09", {}, 1.75)
-            .to(".ball11, .text10", {}, 1.95)
-            .to(".ball12, .text11", {}, 2.15)
-            .to(".text12", {}, 0.98);
-
-            // Main timeline with scroll trigger - pinning the section and allowing internal scroll
-            const main = window.gsap.timeline({
-                defaults: { duration: 1 },
-                scrollTrigger: {
-                    trigger: processSection,
-                    scrub: 1,
-                    start: "top top", // Start when section reaches top of viewport
-                    end: "+=12000px", // Extended animation length for full line
-                    pin: true,
-                    pinSpacing: true,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                    refreshPriority: -1,
-                    onUpdate: (self) => {
-                        console.log("ScrollTrigger progress:", self.progress);
-                        console.log("Scroll position:", window.pageYOffset);
-                    },
-                    onStart: () => {
-                        console.log("ScrollTrigger started");
-                    },
-                    onEnter: () => {
-                        console.log("ScrollTrigger entered");
-                        // Internal scrolling disabled - keeping only ScrollTrigger animation
-                    },
-                    onLeave: () => {
-                        console.log("ScrollTrigger left");
+            // Progressive reveal animation using IntersectionObserver
+            const stepObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Add staggered delay for better visual flow
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                            
+                            // Optional GSAP enhancement if available
+                            if (window.gsap) {
+                                window.gsap.fromTo(entry.target, 
+                                    {
+                                        y: 50,
+                                        opacity: 0
+                                    },
+                                    {
+                                        y: 0,
+                                        opacity: 1,
+                                        duration: 0.8,
+                                        ease: "power2.out"
+                                    }
+                                );
+                            }
+                        }, index * 150); // Staggered animation delay
                     }
-                }
-            })
-            // Animate the main line drawing
-            .to(".theLine", 
-                { 
-                    strokeDashoffset: 0,
-                    duration: 2.0  // Extended duration for full line animation
-                }, 0.08)
-            // Add the pulses timeline
-            .add(pulses, 0.08);
+                });
+            }, {
+                threshold: 0.3,
+                rootMargin: '0px 0px -100px 0px'
+            });
 
-            console.log('✅ Process section animation initialized (reference style)');
+            // Observe each process step
+            processSteps.forEach(step => {
+                stepObserver.observe(step);
+            });
+
+            // Animate timeline line on scroll (if GSAP is available)
+            if (window.gsap && window.ScrollTrigger && timelineLine) {
+                window.gsap.registerPlugin(window.ScrollTrigger);
+                
+                window.gsap.fromTo(timelineLine, 
+                    {
+                        scaleY: 0,
+                        transformOrigin: 'top center'
+                    },
+                    {
+                        scaleY: 1,
+                        duration: 1.5,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: processSection,
+                            start: "top 80%",
+                            end: "bottom 20%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            }
+
+            // Add subtle parallax effect for enhanced depth
+            if (window.gsap) {
+                const parallaxElements = processSection.querySelectorAll('.step-marker');
+                
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const sectionTop = processSection.offsetTop;
+                    const sectionHeight = processSection.offsetHeight;
+                    
+                    // Only apply parallax when section is in view
+                    if (scrolled > sectionTop - window.innerHeight && 
+                        scrolled < sectionTop + sectionHeight) {
+                        
+                        parallaxElements.forEach((element, index) => {
+                            const speed = (index % 2 === 0) ? 0.5 : -0.3;
+                            const yPos = (scrolled - sectionTop) * speed;
+                            
+                            window.gsap.set(element, {
+                                y: yPos
+                            });
+                        });
+                    }
+                });
+            }
+
+            console.log('✅ Modern process section initialized successfully');
         } catch (error) {
-            console.error('❌ Error initializing process section:', error);
+            console.error('❌ Error initializing modern process section:', error);
         }
     }
 

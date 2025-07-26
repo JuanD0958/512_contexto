@@ -606,6 +606,202 @@ body {
     transform-origin: center;
 }
 
+/* =============================================
+   MODERN PROCESS SECTION
+   ============================================= */
+
+.modern-process-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: white;
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.modern-process-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/gray_building_background.webp') center/cover;
+    opacity: 0.05;
+    z-index: 1;
+}
+
+.modern-process-section .main-container {
+    position: relative;
+    z-index: 2;
+}
+
+.process-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 4rem auto 0;
+    padding: 0 2rem;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        #ff6b35 10%, 
+        #ff6b35 90%, 
+        transparent 100%);
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.process-step {
+    position: relative;
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.process-step.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.process-step:nth-child(even) {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.process-step:nth-child(even) .step-content {
+    padding-right: 3rem;
+    padding-left: 0;
+}
+
+.process-step:nth-child(odd) .step-content {
+    padding-left: 3rem;
+    padding-right: 0;
+}
+
+.step-marker {
+    position: relative;
+    z-index: 3;
+    flex-shrink: 0;
+    margin: 0 2rem;
+}
+
+.step-number {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8555 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-number::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    border-radius: 50%;
+}
+
+.process-step.animate-in .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 12px 40px rgba(255, 107, 53, 0.4);
+}
+
+.step-content {
+    flex: 1;
+    max-width: 350px;
+}
+
+.step-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #ff6b35;
+    line-height: 1.3;
+}
+
+.step-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .modern-process-section {
+        padding: 4rem 0;
+    }
+    
+    .process-timeline {
+        padding: 0 1rem;
+    }
+    
+    .timeline-line {
+        left: 40px;
+        transform: none;
+    }
+    
+    .process-step {
+        flex-direction: row !important;
+        text-align: left !important;
+        margin-bottom: 2.5rem;
+    }
+    
+    .process-step .step-content {
+        padding-left: 2rem !important;
+        padding-right: 0 !important;
+    }
+    
+    .step-marker {
+        margin: 0 1rem 0 0;
+    }
+    
+    .step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+    
+    .step-title {
+        font-size: 1.3rem;
+    }
+    
+    .step-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* Legacy process section styles (keeping for reference) */
+.step-text {
+    fill: white;
+    font-family: var(--font-primary);
+    font-size: 18px;
+    font-weight: 500;
+    visibility: hidden;
+    transform-origin: center;
+}
+
 /* Main animated path */
 .theLine {
     stroke: #ff6b35;
