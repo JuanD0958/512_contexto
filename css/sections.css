@@ -37,8 +37,27 @@
     background-image: url('../images/gray_building_background.webp');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-repeat: no-repeat;
     z-index: -2;
+    /* Removed background-attachment: fixed for mobile compatibility */
+}
+
+/* Mobile-specific hero background */
+@media (max-width: 768px) {
+    .hero-background {
+        background-position: center top;
+        background-size: cover;
+        height: 100vh;
+        transform: translateZ(0); /* Hardware acceleration for smoother scrolling */
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .hero-background {
+        background-attachment: scroll;
+        will-change: transform;
+    }
 }
 
 .hero-overlay {
@@ -98,7 +117,16 @@
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* Removed background-attachment: fixed for mobile compatibility */
+}
+
+/* Mobile-specific carousel optimizations */
+@media (max-width: 768px) {
+    .carousel-slide {
+        background-attachment: scroll;
+        background-position: center top;
+        will-change: transform;
+    }
 }
 
 .slide-overlay {
