@@ -948,108 +948,332 @@ class ArchitectureApp {
         return card;
     }
 
-    // Initialize modern process section with elegant animations
+    // Initialize modern process section with stunning GSAP animations
     initProcessSection() {
         try {
             const processSection = document.querySelector('.modern-process-section');
             const processSteps = document.querySelectorAll('.process-step');
-            const timelineLine = document.querySelector('.timeline-line');
+            const processTitle = document.querySelector('.process-title');
+            const processSubtitle = document.querySelector('.process-subtitle');
 
             if (!processSection || !processSteps.length) {
                 console.log('⚠️ Modern process section not found');
                 return;
             }
 
-            console.log('✅ Initializing modern process section...');
+            console.log('✅ Initializing stunning process section with GSAP...');
 
-            // Progressive reveal animation using IntersectionObserver
-            const stepObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        // Add staggered delay for better visual flow
-                        setTimeout(() => {
-                            entry.target.classList.add('animate-in');
-                            
-                            // Optional GSAP enhancement if available
-                            if (window.gsap) {
-                                window.gsap.fromTo(entry.target, 
-                                    {
-                                        y: 50,
-                                        opacity: 0
-                                    },
-                                    {
-                                        y: 0,
-                                        opacity: 1,
-                                        duration: 0.8,
-                                        ease: "power2.out"
-                                    }
-                                );
-                            }
-                        }, index * 150); // Staggered animation delay
+            // Register GSAP plugins
+            if (window.gsap && window.ScrollTrigger) {
+                gsap.registerPlugin(ScrollTrigger);
+
+                // Create a master timeline for the entire section
+                const masterTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: processSection,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse",
+                        onEnter: () => console.log("Process section entered"),
                     }
                 });
-            }, {
-                threshold: 0.3,
-                rootMargin: '0px 0px -100px 0px'
-            });
 
-            // Observe each process step
-            processSteps.forEach(step => {
-                stepObserver.observe(step);
-            });
+                // Animate section header
+                masterTimeline
+                    .from(processTitle, {
+                        y: 80,
+                        opacity: 0,
+                        duration: 1.2,
+                        ease: "power3.out"
+                    })
+                    .from(processSubtitle, {
+                        y: 40,
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    }, "-=0.6");
 
-            // Animate timeline line on scroll (if GSAP is available)
-            if (window.gsap && window.ScrollTrigger && timelineLine) {
-                window.gsap.registerPlugin(window.ScrollTrigger);
-                
-                window.gsap.fromTo(timelineLine, 
-                    {
-                        scaleY: 0,
-                        transformOrigin: 'top center'
-                    },
-                    {
-                        scaleY: 1,
-                        duration: 1.5,
-                        ease: "power2.out",
+                // Create individual scroll triggers for each step with staggered animations
+                processSteps.forEach((step, index) => {
+                    const stepNumber = step.querySelector('.step-number');
+                    const stepContent = step.querySelector('.step-content');
+                    const stepTitle = step.querySelector('.step-title');
+                    const stepDescription = step.querySelector('.step-description');
+                    const stepIcon = step.querySelector('.step-icon');
+
+                    // Create a timeline for each step
+                    const stepTimeline = gsap.timeline({
                         scrollTrigger: {
-                            trigger: processSection,
-                            start: "top 80%",
-                            end: "bottom 20%",
-                            toggleActions: "play none none reverse"
+                            trigger: step,
+                            start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play none none reverse",
+                            onEnter: () => {
+                                step.classList.add('animate-in');
+                            },
+                            onLeave: () => {
+                                // Optional: remove class when scrolling past
+                                // step.classList.remove('animate-in');
+                            }
                         }
-                    }
-                );
-            }
+                    });
 
-            // Add subtle parallax effect for enhanced depth
-            if (window.gsap) {
-                const parallaxElements = processSection.querySelectorAll('.step-marker');
-                
-                window.addEventListener('scroll', () => {
-                    const scrolled = window.pageYOffset;
-                    const sectionTop = processSection.offsetTop;
-                    const sectionHeight = processSection.offsetHeight;
-                    
-                    // Only apply parallax when section is in view
-                    if (scrolled > sectionTop - window.innerHeight && 
-                        scrolled < sectionTop + sectionHeight) {
-                        
-                        parallaxElements.forEach((element, index) => {
-                            const speed = (index % 2 === 0) ? 0.5 : -0.3;
-                            const yPos = (scrolled - sectionTop) * speed;
+                    // Determine animation direction based on step position
+                    const isEven = index % 2 === 0;
+                    const xDirection = isEven ? -100 : 100;
+
+                    // Animate step elements with sophisticated timing
+                    stepTimeline
+                        .fromTo(step, 
+                            {
+                                opacity: 0,
+                                y: 100
+                            },
+                            {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1,
+                                ease: "power3.out"
+                            }
+                        )
+                        .fromTo(stepNumber,
+                            {
+                                scale: 0,
+                                rotation: -180
+                            },
+                            {
+                                scale: 1,
+                                rotation: 0,
+                                duration: 0.8,
+                                ease: "back.out(2)"
+                            }, "-=0.6"
+                        )
+                        .fromTo(stepContent,
+                            {
+                                x: xDirection,
+                                opacity: 0
+                            },
+                            {
+                                x: 0,
+                                opacity: 1,
+                                duration: 0.8,
+                                ease: "power2.out"
+                            }, "-=0.5"
+                        )
+                        .fromTo(stepTitle,
+                            {
+                                y: 30,
+                                opacity: 0
+                            },
+                            {
+                                y: 0,
+                                opacity: 1,
+                                duration: 0.6,
+                                ease: "power2.out"
+                            }, "-=0.4"
+                        )
+                        .fromTo(stepDescription,
+                            {
+                                y: 20,
+                                opacity: 0
+                            },
+                            {
+                                y: 0,
+                                opacity: 1,
+                                duration: 0.6,
+                                ease: "power1.out"
+                            }, "-=0.3"
+                        )
+                        .fromTo(stepIcon,
+                            {
+                                scale: 0,
+                                rotation: 90
+                            },
+                            {
+                                scale: 1,
+                                rotation: 0,
+                                duration: 0.5,
+                                ease: "back.out(1.7)"
+                            }, "-=0.2");
+
+                    // Add hover effects for desktop
+                    if (!this.isMobile()) {
+                        step.addEventListener('mouseenter', () => {
+                            gsap.to(stepNumber, {
+                                scale: 1.15,
+                                boxShadow: "0 25px 50px rgba(255, 107, 53, 0.6)",
+                                duration: 0.3,
+                                ease: "power2.out"
+                            });
                             
-                            window.gsap.set(element, {
-                                y: yPos
+                            gsap.to(stepIcon, {
+                                scale: 1.2,
+                                rotation: 5,
+                                duration: 0.3,
+                                ease: "power2.out"
+                            });
+                        });
+
+                        step.addEventListener('mouseleave', () => {
+                            gsap.to(stepNumber, {
+                                scale: 1.05,
+                                boxShadow: "0 20px 40px rgba(255, 107, 53, 0.5)",
+                                duration: 0.3,
+                                ease: "power2.out"
+                            });
+                            
+                            gsap.to(stepIcon, {
+                                scale: 1.1,
+                                rotation: 0,
+                                duration: 0.3,
+                                ease: "power2.out"
                             });
                         });
                     }
                 });
+
+                // Add parallax effect to the entire section
+                gsap.to(processSection, {
+                    backgroundPosition: "50% 100%",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: processSection,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+
+                // Create floating particles effect
+                this.createProcessParticles();
+
+                // Add section progress indicator
+                this.createProcessProgress();
+
+            } else {
+                // Fallback for when GSAP is not available
+                console.log('GSAP not available, using fallback animations');
+                this.initProcessSectionFallback();
             }
 
-            console.log('✅ Modern process section initialized successfully');
+            console.log('✅ Stunning process section initialized successfully');
         } catch (error) {
-            console.error('❌ Error initializing modern process section:', error);
+            console.error('❌ Error initializing process section:', error);
+            this.initProcessSectionFallback();
         }
+    }
+
+    // Create floating particles effect for process section
+    createProcessParticles() {
+        const processSection = document.querySelector('.modern-process-section');
+        const particlesContainer = document.createElement('div');
+        particlesContainer.className = 'process-particles';
+        particlesContainer.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        `;
+
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: absolute;
+                width: ${Math.random() * 4 + 2}px;
+                height: ${Math.random() * 4 + 2}px;
+                background: rgba(255, 107, 53, ${Math.random() * 0.5 + 0.1});
+                border-radius: 50%;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+            `;
+
+            gsap.to(particle, {
+                y: "random(-50, 50)",
+                x: "random(-30, 30)",
+                duration: "random(3, 6)",
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: Math.random() * 2
+            });
+
+            particlesContainer.appendChild(particle);
+        }
+
+        processSection.appendChild(particlesContainer);
+    }
+
+    // Create progress indicator for process section
+    createProcessProgress() {
+        const processSection = document.querySelector('.modern-process-section');
+        const progressBar = document.createElement('div');
+        progressBar.className = 'process-progress';
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            width: 4px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            opacity: 0;
+        `;
+
+        const progressFill = document.createElement('div');
+        progressFill.style.cssText = `
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(to bottom, #ff6b35, #ff8555);
+            border-radius: 2px;
+            transition: height 0.3s ease;
+        `;
+
+        progressBar.appendChild(progressFill);
+        document.body.appendChild(progressBar);
+
+        // Animate progress bar based on scroll
+        gsap.to(progressFill, {
+            height: "100%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: processSection,
+                start: "top center",
+                end: "bottom center",
+                scrub: 1,
+                onEnter: () => gsap.to(progressBar, { opacity: 1, duration: 0.3 }),
+                onLeave: () => gsap.to(progressBar, { opacity: 0, duration: 0.3 }),
+                onEnterBack: () => gsap.to(progressBar, { opacity: 1, duration: 0.3 }),
+                onLeaveBack: () => gsap.to(progressBar, { opacity: 0, duration: 0.3 })
+            }
+        });
+    }
+
+    // Fallback for when GSAP is not available
+    initProcessSectionFallback() {
+        const processSteps = document.querySelectorAll('.process-step');
+        
+        const stepObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate-in');
+                    }, index * 200);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        processSteps.forEach(step => {
+            stepObserver.observe(step);
+        });
     }
 
     // Helper method to detect mobile devices
