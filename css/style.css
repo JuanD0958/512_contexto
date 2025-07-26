@@ -930,7 +930,14 @@ select {
     margin-bottom: var(--space-12);
 }
 
+<<<<<<< HEAD
 /* Modern Process Section */
+=======
+/* =============================================
+   MODERN PROCESS SECTION
+   ============================================= */
+
+>>>>>>> b717751 (possilbe new section)
 .modern-process-section {
     background: transparent;
     color: var(--color-white);
@@ -959,23 +966,40 @@ select {
 
 .process-header {
     text-align: center;
+<<<<<<< HEAD
     margin-bottom: var(--space-24);
+=======
+    margin-bottom: 6rem;
+>>>>>>> b717751 (possilbe new section)
 }
 
 .process-title {
     font-size: 3.5rem;
+<<<<<<< HEAD
     margin-bottom: var(--space-6);
     background: var(--color-white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: var(--font-weight-bold);
+=======
+    margin-bottom: 1.5rem;
+    background: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+>>>>>>> b717751 (possilbe new section)
     opacity: 0;
     transform: translateY(50px);
 }
 
 .process-subtitle {
+<<<<<<< HEAD
     font-size: var(--font-size-xl);
+=======
+    font-size: 1.25rem;
+>>>>>>> b717751 (possilbe new section)
     color: rgba(255, 255, 255, 0.8);
     max-width: 600px;
     margin: 0 auto;
@@ -987,15 +1011,26 @@ select {
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
+<<<<<<< HEAD
     padding: 0 var(--space-8);
+=======
+    padding: 0 2rem;
+>>>>>>> b717751 (possilbe new section)
 }
 
 .process-step {
     position: relative;
+<<<<<<< HEAD
     margin-bottom: var(--space-16);
     padding: var(--space-10);
     background: rgba(255, 255, 255, 0.03);
     border-radius: var(--border-radius-xl);
+=======
+    margin-bottom: 4rem;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+>>>>>>> b717751 (possilbe new section)
     border: 1px solid rgba(255, 107, 53, 0.1);
     opacity: 0;
     transform: translateY(50px);
@@ -1020,6 +1055,7 @@ select {
 }
 
 .step-title {
+<<<<<<< HEAD
     font-size: var(--font-size-3xl);
     font-weight: var(--font-weight-semibold);
     margin-bottom: var(--space-4);
@@ -1029,6 +1065,17 @@ select {
     display: flex;
     align-items: center;
     gap: var(--space-4);
+=======
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #ff6b35;
+    line-height: 1.3;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+>>>>>>> b717751 (possilbe new section)
 }
 
 .step-title::before {
@@ -1038,11 +1085,19 @@ select {
     justify-content: center;
     width: 40px;
     height: 40px;
+<<<<<<< HEAD
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
     color: var(--color-white);
     border-radius: var(--border-radius-base);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-bold);
+=======
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8555 100%);
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+>>>>>>> b717751 (possilbe new section)
     flex-shrink: 0;
 }
 
@@ -1053,7 +1108,11 @@ select {
     left: 60px;
     width: 0;
     height: 3px;
+<<<<<<< HEAD
     background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+=======
+    background: linear-gradient(90deg, #ff6b35, #ff8555);
+>>>>>>> b717751 (possilbe new section)
     transition: width 0.6s ease;
 }
 
@@ -1062,10 +1121,17 @@ select {
 }
 
 .step-description {
+<<<<<<< HEAD
     font-size: var(--font-size-lg);
     line-height: var(--line-height-loose);
     color: rgba(255, 255, 255, 0.9);
     margin: 0 0 var(--space-6) 0;
+=======
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 1.5rem 0;
+>>>>>>> b717751 (possilbe new section)
     padding-left: 60px;
 }
 
@@ -1074,9 +1140,15 @@ select {
     height: 50px;
     color: rgba(255, 107, 53, 0.7);
     position: absolute;
+<<<<<<< HEAD
     top: var(--space-10);
     right: var(--space-10);
     transition: all var(--transition-base);
+=======
+    top: 2.5rem;
+    right: 2.5rem;
+    transition: all 0.3s ease;
+>>>>>>> b717751 (possilbe new section)
 }
 
 .step-icon svg {
@@ -1085,6 +1157,7 @@ select {
 }
 
 .process-step.animate-in .step-icon {
+<<<<<<< HEAD
     color: var(--color-primary);
     transform: scale(1.1);
 }
@@ -1816,6 +1889,10 @@ a:focus {
     .animate-bounce {
         animation: none;
     }
+=======
+    color: #ff6b35;
+    transform: scale(1.1);
+>>>>>>> b717751 (possilbe new section)
 }
 
 /* Mobile responsive */
