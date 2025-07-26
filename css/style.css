@@ -541,7 +541,7 @@ body {
 
 .process-scroll {
     height: 100%;
-    overflow-y: auto;
+    overflow-y: hidden; /* Disable internal scrolling */
     padding-right: 16px; /* Account for scrollbar */
     scrollbar-width: thin;
     scrollbar-color: #ff6b35 transparent;
@@ -583,7 +583,7 @@ body {
 
 #process-svg {
     width: 100%;
-    max-width: 600px;
+    max-width: 600px; /* consider increasing this to double the width for better visibility */
     height: auto;
     margin: 0 auto;
     display: block;
@@ -611,8 +611,8 @@ body {
     stroke: #ff6b35;
     fill: none;
     stroke-width: 10px;
-    stroke-dasharray: 2000 2000;
-    stroke-dashoffset: 2000;
+    stroke-dasharray: 4000 4000;
+    stroke-dashoffset: 4000;
     stroke-linecap: round;
     stroke-linejoin: round;
     opacity: 1;

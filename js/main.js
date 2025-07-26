@@ -979,7 +979,7 @@ class ArchitectureApp {
             // Set GSAP defaults like in reference
             window.gsap.defaults({ ease: "none" });
 
-            // Create pulse animations for balls and text (updated for 12 steps)
+            // Create pulse animations for balls and text (updated for all steps)
             const pulses = window.gsap.timeline({
                 defaults: {
                     duration: 0.05,
@@ -989,17 +989,17 @@ class ArchitectureApp {
                     ease: "back.out(1.7)"
                 }
             })
-            .to(".ball02, .text01", {}, 0.06)
-            .to(".ball03, .text02", {}, 0.17)
-            .to(".ball04, .text03", {}, 0.28)
-            .to(".ball05, .text04", {}, 0.39)
-            .to(".ball06, .text05", {}, 0.50)
-            .to(".ball07, .text06", {}, 0.61)
-            .to(".ball08, .text07", {}, 0.71)
-            .to(".ball09, .text08", {}, 0.83)
-            .to(".ball10, .text09", {}, 0.94)
-            .to(".ball11, .text10", {}, 0.105)
-            .to(".ball12, .text11", {}, 0.116)
+            .to(".ball02, .text01", {}, 0.10)
+            .to(".ball03, .text02", {}, 0.30)
+            .to(".ball04, .text03", {}, 0.50)
+            .to(".ball05, .text04", {}, 0.75)
+            .to(".ball06, .text05", {}, 0.95)
+            .to(".ball07, .text06", {}, 1.15)
+            .to(".ball08, .text07", {}, 1.35)
+            .to(".ball09, .text08", {}, 1.55)
+            .to(".ball10, .text09", {}, 1.75)
+            .to(".ball11, .text10", {}, 1.95)
+            .to(".ball12, .text11", {}, 2.15)
             .to(".text12", {}, 0.98);
 
             // Main timeline with scroll trigger - pinning the section and allowing internal scroll
@@ -1009,7 +1009,7 @@ class ArchitectureApp {
                     trigger: processSection,
                     scrub: 1,
                     start: "top top", // Start when section reaches top of viewport
-                    end: "+=8000px", // Animation length
+                    end: "+=12000px", // Extended animation length for full line
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
@@ -1024,8 +1024,7 @@ class ArchitectureApp {
                     },
                     onEnter: () => {
                         console.log("ScrollTrigger entered");
-                        // Ensure internal scrolling is enabled when section is pinned
-                        processScroll.style.overflowY = 'auto';
+                        // Internal scrolling disabled - keeping only ScrollTrigger animation
                     },
                     onLeave: () => {
                         console.log("ScrollTrigger left");
@@ -1036,7 +1035,7 @@ class ArchitectureApp {
             .to(".theLine", 
                 { 
                     strokeDashoffset: 0,
-                    duration: 1.1  // Extended duration for 12 steps
+                    duration: 2.0  // Extended duration for full line animation
                 }, 0.08)
             // Add the pulses timeline
             .add(pulses, 0.08);
