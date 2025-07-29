@@ -7,7 +7,7 @@
       "image": "images/projects/WhatsApp-Image-2025-07-23-at-1.50.59-PM.webp",
       "alt": "Casa Jaibaná",
       "category": "Residencial",
-      "url": "https://www.behance.net/gallery/casa-jaibana",
+      "url": "https://www.instagram.com/p/DKcmExDRFHu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
       "translateKeys": {
         "title": "project1-title",
         "description": "project1-desc"
@@ -15,12 +15,11 @@
     },
     {
       "id": "fachada-de-luz",
-      "title": "Fachada de Luz",
-      "description": "Edificio comercial con fachada dinámica que juega con la luz natural y artificial para crear una experiencia visual única.",
-      "image": "images/projects/WhatsApp-Image-2025-07-23-at-1.51.01-PM.webp",
-      "alt": "Fachada de Luz",
-      "category": "Comercial",
-      "url": "https://www.behance.net/gallery/fachada-de-luz",
+      "title": "Fachada en proceso",
+      "description": "Casa camprestre, fachada en proceso.",
+      "image": "images/projects/fachada_1.webp",
+      "category": "Campestre",
+      "url": "https://www.instagram.com/p/DKcmExDRFHu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
       "translateKeys": {
         "title": "project2-title",
         "description": "project2-desc"
@@ -28,11 +27,11 @@
     },
     {
       "id": "oficinas-minimalistas",
-      "title": "Oficinas Minimalistas",
-      "description": "Espacio de trabajo que maximiza la productividad a través del diseño limpio y la optimización de la luz natural.",
-      "image": "images/projects/WhatsApp-Image-2025-07-23-at-1.51.01-PM-_1_.webp",
+      "title": "Interiorismo",
+      "description": "Pendiente descripcion.",
+      "image": "images/projects/interiorismo_1.webp",
       "alt": "Oficinas Minimalistas",
-      "category": "Institucional",
+      "category": "Interiorismo",
       "url": "https://www.behance.net/gallery/oficinas-minimalistas",
       "translateKeys": {
         "title": "project3-title",
@@ -40,26 +39,13 @@
       }
     },
     {
-      "id": "casa-del-patio",
-      "title": "Casa del Patio",
-      "description": "Vivienda que reinterpreta el concepto tradicional del patio colonial con un enfoque contemporáneo y sostenible.",
-      "image": "images/projects/WhatsApp-Image-2025-07-23-at-1.51.01-PM-_2_.webp",
-      "alt": "Casa del Patio",
-      "category": "Uso Mixto",
-      "url": "https://www.behance.net/gallery/casa-del-patio",
-      "translateKeys": {
-        "title": "project4-title",
-        "description": "project4-desc"
-      }
-    },
-    {
       "id": "loft-urbano",
       "title": "Loft Urbano",
-      "description": "Transformación de un espacio industrial en un hogar moderno que celebra la historia del edificio.",
-      "image": "images/projects/WhatsApp-Image-2025-07-23-at-1.51.01-PM-_3_.webp",
+      "description": "Pendiente descripcion.",
+      "image": "images/projects/loft.webp",
       "alt": "Loft Urbano",
-      "category": "Residencial",
-      "url": "https://www.behance.net/gallery/loft-urbano",
+      "category": "Loft",
+      "url": "https://www.instagram.com/p/DKcmExDRFHu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
       "translateKeys": {
         "title": "project5-title",
         "description": "project5-desc"
@@ -67,12 +53,12 @@
     },
     {
       "id": "hotel-boutique",
-      "title": "Hotel Boutique",
-      "description": "Proyecto hotelero que fusiona la arquitectura local con amenidades de lujo para una experiencia única.",
-      "image": "images/projects/WhatsApp-Image-2025-07-23-at-1.51.01-PM-_4_.webp",
-      "alt": "Hotel Boutique",
-      "category": "Hotelería",
-      "url": "https://www.behance.net/gallery/hotel-boutique",
+      "title": "Proyecto Mozzafiato",
+      "description": "Transformamos esta pizzería en una experiencia sensorial que va más allá del sabor. A través de un diseño cálido, moderno y envolvente, logramos reflejar la esencia del nombre: mozzafiato, que significa \"que quita el aliento\".",
+      "image": "images/projects/comercial_1.webp",
+      "alt": "Proyecto Mozzafiato",
+      "category": "Comercial",
+      "url": "https://www.instagram.com/p/DLGgkRsRcOB/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
       "translateKeys": {
         "title": "project6-title",
         "description": "project6-desc"
