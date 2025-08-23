@@ -182,7 +182,7 @@ body::before {
     will-change: transform;
 }
 
-/* Mobile-specific background optimizations */
+/* Mobile devices - Optimized for small screens */
 @media (max-width: 768px) {
     body::before {
         background-attachment: scroll;
@@ -192,10 +192,30 @@ body::before {
     }
 }
 
-/* High DPI/Retina display optimization */
+/* High DPI/Retina displays - Better quality for sharp screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     body::before {
         background-image: url('../images/gray_building_background.webp');
+        /* Consider using higher resolution version if available */
+        /* background-image: url('../images/gray_building_background_2x.webp'); */
+    }
+}
+
+/* Large screens and 4K monitors - Maximum quality */
+@media (min-width: 1920px) {
+    body::before {
+        background-size: cover;
+        background-position: center center;
+        /* Use highest resolution for large displays */
+        /* background-image: url('../images/gray_building_background_4k.webp'); */
+    }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 2560px) {
+    body::before {
+        background-size: cover;
+        background-position: center center;
     }
 }
 
